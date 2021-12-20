@@ -9,6 +9,10 @@ import (
 	_adminRepo "finalproject/features/admins/data"
 	_adminController "finalproject/features/admins/presentation"
 
+	_doctorService "finalproject/features/doctor/bussiness"
+	_doctorRepo "finalproject/features/doctor/data"
+	_doctorController "finalproject/features/doctor/presentation"
+
 	_dbDriver "finalproject/config"
 
 	_driverFactory "finalproject/drivers"
@@ -35,6 +39,7 @@ func init() {
 func dbMigrate(db *gorm.DB) {
 	db.AutoMigrate(
 		&_adminRepo.Admins{},
+		&_doctorRepo.Doctor{},
 	)
 }
 
@@ -60,9 +65,14 @@ func main() {
 	adminService := _adminService.NewServiceAdmin(adminRepo, 10, &configJWT)
 	adminCtrl := _adminController.NewHandlerAdmin(adminService)
 
+	doctorRepo := _driverFactory.NewDoctorRepository(db)
+	doctorService := _doctorService.NewServiceDoctor(doctorRepo, 10, &configJWT)
+	doctorCtrl := _doctorController.NewHandlerDoctor(doctorService)
+
 	routesInit := _routes.RouteList{
 		JWTMiddleware: configJWT.Init(),
 		AdminRouter:   *adminCtrl,
+		DoctorRouter:  *doctorCtrl,
 	}
 
 	routesInit.RouteRegister(e)

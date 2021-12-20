@@ -4,6 +4,11 @@ import (
 	business "finalproject/features/admins/bussiness"
 	admins "finalproject/features/admins/presentation"
 	controller "finalproject/features/admins/presentation/response"
+
+	bussiness "finalproject/features/doctor/bussiness"
+	doctor "finalproject/features/doctor/presentation"
+	response "finalproject/features/doctor/presentation/response"
+
 	middlewareApp "finalproject/middleware"
 
 	"net/http"
@@ -15,6 +20,7 @@ import (
 type RouteList struct {
 	JWTMiddleware middleware.JWTConfig
 	AdminRouter   admins.AdminHandler
+	DoctorRouter  doctor.DoctorHandler
 }
 
 func (cl *RouteList) RouteRegister(e *echo.Echo) {
@@ -22,6 +28,14 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	admins := e.Group("admins")
 	admins.POST("/register", cl.AdminRouter.Register)
 	admins.POST("/login", cl.AdminRouter.Login)
+	admins.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+	admins.DELETE("/delete-doctor/:id", cl.DoctorRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+
+	// Doctor
+	doctor := e.Group("doctor")
+	doctor.POST("/register", cl.DoctorRouter.Register)
+	doctor.POST("/login", cl.DoctorRouter.Login)
+	doctor.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
 
 }
 
@@ -34,6 +48,19 @@ func RoleValidationAdmin() echo.MiddlewareFunc {
 				return hf(c)
 			} else {
 				return controller.NewErrorResponse(c, http.StatusForbidden, business.ErrUnathorized)
+			}
+		}
+	}
+}
+func RoleValidationDoctor() echo.MiddlewareFunc {
+	return func(hf echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			claims := middlewareApp.GetUser(c)
+
+			if claims.Role == "doctor" {
+				return hf(c)
+			} else {
+				return response.NewErrorResponse(c, http.StatusForbidden, bussiness.ErrUnathorized)
 			}
 		}
 	}
