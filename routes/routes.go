@@ -9,6 +9,8 @@ import (
 	doctor "finalproject/features/doctor/presentation"
 	response "finalproject/features/doctor/presentation/response"
 
+	docses "finalproject/features/docses/presentation"
+
 	middlewareApp "finalproject/middleware"
 
 	"net/http"
@@ -21,6 +23,7 @@ type RouteList struct {
 	JWTMiddleware middleware.JWTConfig
 	AdminRouter   admins.AdminHandler
 	DoctorRouter  doctor.DoctorHandler
+	DocsesRouter  docses.DocsesHandler
 }
 
 func (cl *RouteList) RouteRegister(e *echo.Echo) {
@@ -31,11 +34,19 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	admins.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 	admins.DELETE("/delete-doctor/:id", cl.DoctorRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 
+	admins.POST("/create-docses", cl.DocsesRouter.Create, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+	admins.PUT("/update-docses/:id", cl.DocsesRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+	admins.DELETE("/delete-docses/:id", cl.DocsesRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+
 	// Doctor
 	doctor := e.Group("doctor")
 	doctor.POST("/register", cl.DoctorRouter.Register)
 	doctor.POST("/login", cl.DoctorRouter.Login)
 	doctor.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
+
+	//Docses
+	e.GET("/docses", cl.DocsesRouter.AllDocses)
+	e.GET("/docses/:id", cl.DocsesRouter.DocsesByID)
 
 }
 
