@@ -7,6 +7,8 @@ import (
 	docsesDB "finalproject/features/docses/data"
 	"finalproject/features/doctor"
 	doctorDB "finalproject/features/doctor/data"
+	"finalproject/features/patient"
+	patientDB "finalproject/features/patient/data"
 
 	"gorm.io/gorm"
 )
@@ -19,4 +21,7 @@ func NewDoctorRepository(conn *gorm.DB) doctor.Repository {
 }
 func NewDocsesRepository(conn *gorm.DB) docses.Repository {
 	return docsesDB.NewMysqlDocsesRepository(conn)
+}
+func NewPatientRepository(conn *gorm.DB) patient.Repository {
+	return patientDB.NewMysqlPatientRepository(conn)
 }
