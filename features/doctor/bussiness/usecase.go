@@ -93,3 +93,13 @@ func (serv *serviceDoctor) Delete(docID int, id int) (string, error) {
 
 	return result, nil
 }
+func (serv *serviceDoctor) AllDoctor() ([]doctor.Domain, error) {
+
+	result, err := serv.doctorRepository.AllDoctor()
+
+	if err != nil {
+		return []doctor.Domain{}, err
+	}
+
+	return result, nil
+}

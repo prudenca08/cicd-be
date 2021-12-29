@@ -84,3 +84,16 @@ func (rep *MysqlDoctorRepository) Delete(docID int, id int) (string, error) {
 	return "Product has been delete", nil
 
 }
+func (rep *MysqlDoctorRepository) AllDoctor() ([]doctor.Domain, error) {
+
+	var pat []Doctor
+
+	result := rep.Conn.Find(&pat)
+
+	if result.Error != nil {
+		return []doctor.Domain{}, result.Error
+	}
+
+	return toDomainList(pat), nil
+
+}

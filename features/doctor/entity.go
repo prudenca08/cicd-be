@@ -25,6 +25,7 @@ type Service interface {
 	Update(docID int, domain *Domain) (Domain, error)
 	DoctorByID(id int) (Domain, error)
 	Delete(docID, id int) (string, error)
+	AllDoctor() ([]Domain, error)
 }
 
 type Repository interface {
@@ -33,4 +34,5 @@ type Repository interface {
 	Update(docID int, domain *Domain) (Domain, error)
 	DoctorByID(id int) (Domain, error)
 	Delete(docID, id int) (string, error)
+	AllDoctor() ([]Domain, error)
 }

@@ -80,3 +80,11 @@ func toDomainUpdate(doc Doctor) doctor.Domain {
 		UpdatedAt:       doc.UpdatedAt,
 	}
 }
+func toDomainList(data []Doctor) []doctor.Domain {
+	result := []doctor.Domain{}
+
+	for _, pat := range data {
+		result = append(result, toDomain(pat))
+	}
+	return result
+}

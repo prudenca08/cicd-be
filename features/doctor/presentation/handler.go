@@ -100,3 +100,14 @@ func (ctrl *DoctorHandler) Delete(c echo.Context) error {
 	return response.NewSuccessResponse(c, result)
 
 }
+func (ctrl *DoctorHandler) AllDoctor(c echo.Context) error {
+
+	result, err := ctrl.doctorHand.AllDoctor()
+
+	if err != nil {
+		return response.NewErrorResponse(c, http.StatusBadRequest, err)
+	}
+
+	return response.NewSuccessResponse(c, response.FromDoctorListDomain(result))
+
+}

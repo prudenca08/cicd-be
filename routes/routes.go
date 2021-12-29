@@ -59,6 +59,10 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	e.GET("/patient", cl.PatientRouter.AllPatient)
 	e.GET("/patient/:id", cl.PatientRouter.PatientByID)
 
+	//Doctor
+	e.GET("/doctor", cl.DoctorRouter.AllDoctor)
+	e.GET("/doctor/:id", cl.DoctorRouter.DoctorByID)
+
 }
 
 func RoleValidationAdmin() echo.MiddlewareFunc {

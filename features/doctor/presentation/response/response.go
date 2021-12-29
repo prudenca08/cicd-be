@@ -10,19 +10,33 @@ import (
 )
 
 type DoctorRegisterResponse struct {
-	Message   string    `json:"message"`
-	ID        int       `json:"id:"`
-	Username  string    `json:"username"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Message      string    `json:"message"`
+	ID           int       `json:"id:"`
+	Username     string    `json:"username"`
+	Password     string    `json:"password"`
+	Name         string    `json:"name"`
+	NIP          string    `json:"nip"`
+	Experience   string    `json:"experience"`
+	Spesialist   string    `json:"specialist"`
+	Room         string    `json:"room"`
+	Phone_Number string    `json:"phone_number"`
+	Status       string    `json:"status"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
 }
 type DoctorResponse struct {
-	ID        int       `json:"id:"`
-	Username  string    `json:"username"`
-	Name      string    `json:"name"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID           int       `json:"id:"`
+	Username     string    `json:"username"`
+	Password     string    `json:"password"`
+	Name         string    `json:"name"`
+	NIP          string    `json:"nip"`
+	Experience   string    `json:"experience"`
+	Spesialist   string    `json:"specialist"`
+	Room         string    `json:"room"`
+	Phone_Number string    `json:"phone_number"`
+	Status       string    `json:"status"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
 }
 type BaseResponse struct {
 	Meta struct {
@@ -51,13 +65,21 @@ func NewErrorResponse(c echo.Context, status int, err error) error {
 	return c.JSON(status, response)
 }
 
-func FromDomainRegister(domain doctor.Domain) DoctorResponse {
-	return DoctorResponse{
-		ID:        domain.ID,
-		Username:  domain.Username,
-		Name:      domain.Name,
-		CreatedAt: domain.CreatedAt,
-		UpdatedAt: domain.UpdatedAt,
+func FromDomainRegister(domain doctor.Domain) DoctorRegisterResponse {
+	return DoctorRegisterResponse{
+		Message:      "Register Doctor Success",
+		ID:           domain.ID,
+		Username:     domain.Username,
+		Password:     domain.Password,
+		Name:         domain.Name,
+		NIP:          domain.NIP,
+		Experience:   domain.Experience,
+		Spesialist:   domain.Specialist,
+		Room:         domain.Room,
+		Phone_Number: domain.Phone_Number,
+		Status:       domain.Status,
+		CreatedAt:    domain.CreatedAt,
+		UpdatedAt:    domain.UpdatedAt,
 	}
 }
 
@@ -74,22 +96,43 @@ func FromDomainLogin(domain doctor.Domain) DoctorLoginResponse {
 }
 func FromDomainUpdateDoctor(domain doctor.Domain) DoctorRegisterResponse {
 	return DoctorRegisterResponse{
-		Message:   "Update Doctor Success",
-		ID:        domain.ID,
-		Username:  domain.Username,
-		Name:      domain.Name,
-		CreatedAt: domain.CreatedAt,
-		UpdatedAt: domain.UpdatedAt,
+		Message:      "Update Doctor Success",
+		ID:           domain.ID,
+		Username:     domain.Username,
+		Password:     domain.Password,
+		Name:         domain.Name,
+		NIP:          domain.NIP,
+		Experience:   domain.Experience,
+		Spesialist:   domain.Specialist,
+		Room:         domain.Room,
+		Phone_Number: domain.Phone_Number,
+		Status:       domain.Status,
+		CreatedAt:    domain.CreatedAt,
+		UpdatedAt:    domain.UpdatedAt,
 	}
 }
 
-func FromDomainAllDoctor(domain doctor.Domain) DoctorRegisterResponse {
-	return DoctorRegisterResponse{
-		Message:   "Update Doctor Success",
-		ID:        domain.ID,
-		Username:  domain.Username,
-		Name:      domain.Name,
-		CreatedAt: domain.CreatedAt,
-		UpdatedAt: domain.UpdatedAt,
+func FromDomainAllDoctor(domain doctor.Domain) DoctorResponse {
+	return DoctorResponse{
+		ID:           domain.ID,
+		Username:     domain.Username,
+		Password:     domain.Password,
+		Name:         domain.Name,
+		NIP:          domain.NIP,
+		Experience:   domain.Experience,
+		Spesialist:   domain.Specialist,
+		Room:         domain.Room,
+		Phone_Number: domain.Phone_Number,
+		Status:       domain.Status,
+		CreatedAt:    domain.CreatedAt,
+		UpdatedAt:    domain.UpdatedAt,
 	}
+}
+
+func FromDoctorListDomain(domain []doctor.Domain) []DoctorResponse {
+	var response []DoctorResponse
+	for _, value := range domain {
+		response = append(response, FromDomainAllDoctor(value))
+	}
+	return response
 }
