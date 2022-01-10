@@ -17,6 +17,8 @@ import (
 
 	patientses "finalproject/features/patientses/presentation"
 
+	recipe "finalproject/features/recipe/presentation"
+
 	middlewareApp "finalproject/middleware"
 
 	"net/http"
@@ -33,6 +35,7 @@ type RouteList struct {
 	PatientRouter patient.PatientHandler
 	PatientsesRouter  patientses.PatientsesHandler
 	PatscheRouter patsche.PatscheHandler
+	RecipeRouter recipe.RecipeHandler
 }
 
 func (cl *RouteList) RouteRegister(e *echo.Echo) {
@@ -66,6 +69,10 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	doctor.POST("/login", cl.DoctorRouter.Login)
 	doctor.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
 
+	doctor.POST("/create-recipe", cl.RecipeRouter.Create,  middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
+	doctor.PUT("/update-recipe" , cl.RecipeRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
+	doctor.DELETE("/delete-recipe/:id", cl.RecipeRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
+
 	//Docses
 	e.GET("/docses", cl.DocsesRouter.AllDocses)
 	e.GET("/docses/:id", cl.DocsesRouter.DocsesByID)
@@ -84,6 +91,9 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 
 	//Patientses
 	e.GET("/patientses",cl.PatientsesRouter.AllPatientses)
+
+	//Recipe
+	e.GET("/recipe", cl.RecipeRouter.AllRecipe)
 
 }
 

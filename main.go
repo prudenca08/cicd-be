@@ -29,6 +29,10 @@ import (
 	_patientRepo "finalproject/features/patient/data"
 	_patientController "finalproject/features/patient/presentation"
 
+	_recipeService "finalproject/features/recipe/bussiness"
+	_recipeRepo "finalproject/features/recipe/data"
+	_recipeController "finalproject/features/recipe/presentation"
+
 	_dbDriver "finalproject/config"
 
 	_driverFactory "finalproject/drivers"
@@ -60,6 +64,7 @@ func dbMigrate(db *gorm.DB) {
 		&_patientRepo.Patient{},
 		&_patientsesRepo.Patientses{},
 		&_patscheRepo.Patsche{},
+		&_recipeRepo.Recipe{},
 	)
 }
 
@@ -105,6 +110,10 @@ func main() {
 	patientsesService := _patientsesService.NewServicePatientses(patientsesRepo)
 	patientsesCtrl := _patientsesController.NewHandlerPatientses(patientsesService)
 
+	recipeRepo := _driverFactory.NewRecipeRepository(db)
+	recipeService := _recipeService.NewServiceRecipe(recipeRepo)
+	recipeCtrl := _recipeController.NewHandlerRecipe(recipeService)
+
 	routesInit := _routes.RouteList{
 		JWTMiddleware: configJWT.Init(),
 		AdminRouter:   *adminCtrl,
@@ -113,6 +122,7 @@ func main() {
 		PatientRouter: *patientCtrl,
 		PatientsesRouter: *patientsesCtrl,
 		PatscheRouter: *patscheCtrl,
+		RecipeRouter: *recipeCtrl,
 	}
 
 	routesInit.RouteRegister(e)
