@@ -44,13 +44,13 @@ func (serv *serviceAdmin) Login(username, password string) (admins.Domain, error
 	result, err := serv.adminRepository.Login(username, password)
 
 	if err != nil {
-		return admins.Domain{}, ErrEmailorPass
+		return admins.Domain{}, err
 	}
 
 	checkPass := encrypt.CheckPasswordHash(password, result.Password)
 
 	if !checkPass {
-		return admins.Domain{}, ErrEmailorPass
+		return admins.Domain{}, ErrPass
 	}
 
 	result.Token = serv.jwtAuth.GenerateToken(result.ID, "admin")
