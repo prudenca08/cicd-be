@@ -17,6 +17,10 @@ import (
 	_docsesRepo "finalproject/features/docses/data"
 	_docsesController "finalproject/features/docses/presentation"
 
+	_patscheService "finalproject/features/patsche/bussiness"
+	_patscheRepo "finalproject/features/patsche/data"
+	_patscheController "finalproject/features/patsche/presentation"
+
 	_patientService "finalproject/features/patient/bussiness"
 	_patientRepo "finalproject/features/patient/data"
 	_patientController "finalproject/features/patient/presentation"
@@ -50,6 +54,7 @@ func dbMigrate(db *gorm.DB) {
 		&_doctorRepo.Doctor{},
 		&_docsesRepo.Docses{},
 		&_patientRepo.Patient{},
+		&_patscheRepo.Patsche{},
 	)
 }
 
@@ -83,6 +88,10 @@ func main() {
 	docsesService := _docsesService.NewServiceDocses(docsesRepo)
 	docsesCtrl := _docsesController.NewHandlerDocses(docsesService)
 
+	patscheRepo := _driverFactory.NewPatscheRepository(db)
+	patscheService := _patscheService.NewServicePatsche(patscheRepo)
+	patscheCtrl := _patscheController.NewHandlerPatsche(patscheService)
+
 	patientRepo := _driverFactory.NewPatientRepository(db)
 	patientService := _patientService.NewServicePatient(patientRepo)
 	patientCtrl := _patientController.NewHandlerPatient(patientService)
@@ -93,6 +102,7 @@ func main() {
 		DoctorRouter:  *doctorCtrl,
 		DocsesRouter:  *docsesCtrl,
 		PatientRouter: *patientCtrl,
+		PatscheRouter: *patscheCtrl,
 	}
 
 	routesInit.RouteRegister(e)

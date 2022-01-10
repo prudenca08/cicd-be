@@ -11,6 +11,8 @@ import (
 
 	docses "finalproject/features/docses/presentation"
 
+	patsche "finalproject/features/patsche/presentation"
+
 	patient "finalproject/features/patient/presentation"
 
 	middlewareApp "finalproject/middleware"
@@ -27,6 +29,7 @@ type RouteList struct {
 	DoctorRouter  doctor.DoctorHandler
 	DocsesRouter  docses.DocsesHandler
 	PatientRouter patient.PatientHandler
+	PatscheRouter patsche.PatscheHandler
 }
 
 func (cl *RouteList) RouteRegister(e *echo.Echo) {
@@ -36,6 +39,10 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	admins.POST("/login", cl.AdminRouter.Login)
 	admins.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 	admins.DELETE("/delete-doctor/:id", cl.DoctorRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+
+	admins.POST("/create-patsche", cl.PatscheRouter.Create, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+	admins.PUT("/update-patsche/:id", cl.PatscheRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+	admins.DELETE("/delete-patsche/:id", cl.PatscheRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 
 	admins.POST("/create-docses", cl.DocsesRouter.Create, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 	admins.PUT("/update-docses/:id", cl.DocsesRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
@@ -56,12 +63,16 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	e.GET("/docses/:id", cl.DocsesRouter.DocsesByID)
 
 	//Patients
-	e.GET("/patient", cl.PatientRouter.AllPatient)
-	e.GET("/patient/:id", cl.PatientRouter.PatientByID)
+	e.GET("/patsche", cl.PatscheRouter.AllPatsche)
+	e.GET("/patsche/:id", cl.PatscheRouter.PatscheByID)
 
 	//Doctor
 	e.GET("/doctor", cl.DoctorRouter.AllDoctor)
 	e.GET("/doctor/:id", cl.DoctorRouter.DoctorByID)
+
+	//Docses
+	e.GET("/docses", cl.DocsesRouter.AllDocses)
+	e.GET("/docses/:id", cl.DocsesRouter.DocsesByID)
 
 }
 
