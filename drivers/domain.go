@@ -9,6 +9,8 @@ import (
 	doctorDB "finalproject/features/doctor/data"
 	"finalproject/features/patient"
 	patientDB "finalproject/features/patient/data"
+	"finalproject/features/patientses"
+	patientsesDB "finalproject/features/patientses/data"
 	"finalproject/features/patsche"
 	patscheDB "finalproject/features/patsche/data"
 
@@ -26,6 +28,10 @@ func NewDocsesRepository(conn *gorm.DB) docses.Repository {
 }
 func NewPatientRepository(conn *gorm.DB) patient.Repository {
 	return patientDB.NewMysqlPatientRepository(conn)
+}
+
+func NewPatientsesRepository(conn *gorm.DB) patientses.Repository{
+	return patientsesDB.NewMysqlPatientsesRepository(conn)
 }
 func NewPatscheRepository(conn *gorm.DB) patsche.Repository {
 	return patscheDB.NewMysqlPatscheRepository(conn)
