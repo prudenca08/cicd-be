@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"finalproject/features/doctor"
+	"finalproject/features/doctor/bussiness"
 	"finalproject/features/doctor/presentation/request"
 	"finalproject/features/doctor/presentation/response"
 	"finalproject/middleware"
@@ -48,6 +49,11 @@ func (ctrl *DoctorHandler) Login(c echo.Context) error {
 	}
 	result, err := ctrl.doctorHand.Login(loginReq.Username, loginReq.Password)
 	if err != nil {
+		if err == bussiness.ErrEmail {
+			return response.NewErrorResponse(c, http.StatusNotFound, err)
+		} else if err == bussiness.ErrPass {
+			return response.NewErrorResponse(c, http.StatusUnauthorized, err)
+		}
 		return response.NewErrorResponse(c, http.StatusInternalServerError, err)
 	}
 
