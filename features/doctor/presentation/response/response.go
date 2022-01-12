@@ -6,6 +6,8 @@ import (
 
 	"net/http"
 
+	docsesResp "finalproject/features/docses/presentation/response"
+
 	echo "github.com/labstack/echo/v4"
 )
 
@@ -25,18 +27,19 @@ type DoctorRegisterResponse struct {
 	UpdatedAt    time.Time `json:"updated_at"`
 }
 type DoctorResponse struct {
-	ID           int       `json:"id:"`
-	Username     string    `json:"username"`
-	Password     string    `json:"password"`
-	Name         string    `json:"name"`
-	NIP          string    `json:"nip"`
-	Experience   string    `json:"experience"`
-	Spesialist   string    `json:"specialist"`
-	Room         string    `json:"room"`
-	Phone_Number string    `json:"phone_number"`
-	Status       string    `json:"status"`
-	CreatedAt    time.Time `json:"created_at"`
-	UpdatedAt    time.Time `json:"updated_at"`
+	ID            int                       `json:"id:"`
+	Username      string                    `json:"username"`
+	Password      string                    `json:"password"`
+	Name          string                    `json:"name"`
+	NIP           string                    `json:"nip"`
+	Experience    string                    `json:"experience"`
+	Spesialist    string                    `json:"specialist"`
+	Room          string                    `json:"room"`
+	Phone_Number  string                    `json:"phone_number"`
+	Status        string                    `json:"status"`
+	CreatedAt     time.Time                 `json:"created_at"`
+	UpdatedAt     time.Time                 `json:"updated_at"`
+	DoctorSession docsesResp.DocsesResponse `json:"doctor_session"`
 }
 type BaseResponse struct {
 	Meta struct {
@@ -114,18 +117,19 @@ func FromDomainUpdateDoctor(domain doctor.Domain) DoctorRegisterResponse {
 
 func FromDomainAllDoctor(domain doctor.Domain) DoctorResponse {
 	return DoctorResponse{
-		ID:           domain.ID,
-		Username:     domain.Username,
-		Password:     domain.Password,
-		Name:         domain.Name,
-		NIP:          domain.NIP,
-		Experience:   domain.Experience,
-		Spesialist:   domain.Specialist,
-		Room:         domain.Room,
-		Phone_Number: domain.Phone_Number,
-		Status:       domain.Status,
-		CreatedAt:    domain.CreatedAt,
-		UpdatedAt:    domain.UpdatedAt,
+		ID:            domain.ID,
+		Username:      domain.Username,
+		Password:      domain.Password,
+		Name:          domain.Name,
+		NIP:           domain.NIP,
+		Experience:    domain.Experience,
+		Spesialist:    domain.Specialist,
+		Room:          domain.Room,
+		Phone_Number:  domain.Phone_Number,
+		Status:        domain.Status,
+		CreatedAt:     domain.CreatedAt,
+		UpdatedAt:     domain.UpdatedAt,
+		DoctorSession: docsesResp.FromDomainAllDocses(domain.DoctorSession),
 	}
 }
 
