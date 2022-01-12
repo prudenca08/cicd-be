@@ -1,6 +1,9 @@
 package doctor
 
-import "time"
+import (
+	docsesentity "finalproject/features/docses"
+	"time"
+)
 
 type Domain struct {
 	ID              int
@@ -17,6 +20,7 @@ type Domain struct {
 	Token           string
 	CreatedAt       time.Time
 	UpdatedAt       time.Time
+	DoctorSession   docsesentity.Domain
 }
 
 type Service interface {

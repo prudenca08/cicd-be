@@ -88,7 +88,7 @@ func (rep *MysqlDoctorRepository) AllDoctor() ([]doctor.Domain, error) {
 
 	var pat []Doctor
 
-	result := rep.Conn.Find(&pat)
+	result := rep.Conn.Preload("DoctorSession").Find(&pat)
 
 	if result.Error != nil {
 		return []doctor.Domain{}, result.Error
