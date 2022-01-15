@@ -30,6 +30,7 @@ import (
 	_driverFactory "finalproject/drivers"
 
 	_middleware "finalproject/middleware"
+
 	corsm "github.com/labstack/echo/v4/middleware"
 
 	"github.com/labstack/echo/v4"
@@ -78,9 +79,8 @@ func main() {
 	e := echo.New()
 	e.Use(corsm.CORSWithConfig(corsm.CORSConfig{
 		AllowOrigins: []string{"*"},
-		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-	  }))
-
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAccessControlAllowHeaders, echo.HeaderAuthorization, echo.HeaderAccessControlAllowMethods},
+	}))
 
 	adminRepo := _driverFactory.NewAdminRepository(db)
 	adminService := _adminService.NewServiceAdmin(adminRepo, 10, &configJWT)
