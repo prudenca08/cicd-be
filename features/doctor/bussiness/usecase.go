@@ -48,13 +48,13 @@ func (serv *serviceDoctor) Login(email, password string) (doctor.Domain, error) 
 	result, err := serv.doctorRepository.Login(email, password)
 
 	if err != nil {
-		return doctor.Domain{}, ErrEmailorPass
+		return doctor.Domain{}, err
 	}
 
 	checkPass := encrypt.CheckPasswordHash(password, result.Password)
 
 	if !checkPass {
-		return doctor.Domain{}, ErrEmailorPass
+		return doctor.Domain{}, ErrPass
 	}
 
 	result.Token = serv.jwtAuth.GenerateToken(result.ID, "doctor")
