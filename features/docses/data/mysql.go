@@ -30,7 +30,7 @@ func (rep *MysqlDocsesRepository) Create(dsID int, domain *docses.Domain) (docse
 		return docses.Domain{}, result.Error
 	}
 
-	return toDomain(dss), nil
+	return ToDomain(dss), nil
 
 }
 
@@ -90,5 +90,5 @@ func (rep *MysqlDocsesRepository) DocsesByID(id int) (docses.Domain, error) {
 		return docses.Domain{}, result.Error
 	}
 
-	return toDomain(ds), nil
+	return ToDomain(ds), nil
 }
