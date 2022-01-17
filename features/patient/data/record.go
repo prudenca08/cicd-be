@@ -22,7 +22,7 @@ type Patient struct {
 	UpdatedAt time.Time
 }
 
-func toDomain(pat Patient) patient.Domain {
+func ToDomain(pat Patient) patient.Domain {
 	return patient.Domain{
 		ID:        pat.ID,
 		AdminID:   pat.AdminID,
@@ -73,7 +73,7 @@ func toDomainList(data []Patient) []patient.Domain {
 	result := []patient.Domain{}
 
 	for _, pat := range data {
-		result = append(result, toDomain(pat))
+		result = append(result, ToDomain(pat))
 	}
 	return result
 }

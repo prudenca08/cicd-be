@@ -1,17 +1,27 @@
 package response
 
 import (
+	doctorresponse "finalproject/features/doctor/presentation/response"
+	patientresponse "finalproject/features/patient/presentation/response"
 	"finalproject/features/patientses"
+	patscheresponse "finalproject/features/patsche/presentation/response"
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
 
 type CreatePatientsesResponse struct {
-	ID      int    `json:"id"`
+	Message string `json:"message"`
+	ID                int    `json:"id"`
+	AdminID           int `json:"adminid"`
+	DoctorID          int `json:"doctorid"`
+	PatientID         int `json:"patientid"`
+	PatientScheduleID int `json:"patientscheduleid"`
 	Status  string `json:"status"`
 	Date    string `json:"date"`
-	Message string `json:"message"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 type BaseResponse struct {
 	Meta struct {
@@ -40,23 +50,47 @@ func NewErrorResponse(c echo.Context, status int, err error) error {
 
 func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse{
 	return CreatePatientsesResponse{
+		Message: "Create Patient Session Success",
 		ID: domain.ID,
+		AdminID: domain.AdminID,
+		DoctorID: domain.DoctorID,
+		PatientID: domain.PatientID ,
+		PatientScheduleID: domain.PatientScheduleID,
 		Status: domain.Status,
 		Date: domain.Date,
-		Message: "Create Patient Session Success",
+		CreatedAt: domain.CreatedAt,
+		UpdatedAt: domain.UpdatedAt,
 	}
 }
 type PatientsesResponse struct{
-	ID int `json:"id"`
+	ID                int `json:"id"`
+	AdminID			  int `json:"adminid"`
+	DoctorID          int `json:"doctorid"`
+	PatientID         int `json:"patientid"`
+	PatientScheduleID int `json:"patientscheduleid"`
 	Status string `json:"status"`
 	Date string `json:"date"`
-
+	Patsche patscheresponse.PatscheResponse `json:"patsche"`
+	Patient patientresponse.PatientResponse `json:"patient"`
+	Doctor doctorresponse.DoctorResponse `json:"doctor"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
+
 func FromDomainAllPatientses(domain patientses.Domain) PatientsesResponse{
 	return PatientsesResponse{
 		ID: domain.ID,
+		AdminID: domain.AdminID,
+		DoctorID: domain.DoctorID,
+		PatientID: domain.PatientID,
+		PatientScheduleID: domain.PatientScheduleID,
 		Status: domain.Status,
 		Date: domain.Date,
+		Patsche: patscheresponse.FromDomainAllPatsche(domain.Patsche),
+		Doctor: doctorresponse.FromDomainAllDoctor(domain.Doctor),
+		Patient: patientresponse.FromDomainAllPatient(domain.Patient),
+		CreatedAt: domain.CreatedAt,
+		UpdatedAt: domain.UpdatedAt,
 	}
 }
 
@@ -64,8 +98,14 @@ func FromDomainUpdatePatientses(domain patientses.Domain) CreatePatientsesRespon
 	return CreatePatientsesResponse{
 		Message : "Update Patient Session Success",
 		ID: domain.ID,
+		AdminID: domain.AdminID,
+		DoctorID: domain.DoctorID,
+		PatientID: domain.PatientID,
+		PatientScheduleID: domain.PatientScheduleID,
 		Status: domain.Status,
 		Date: domain.Date,
+		CreatedAt: domain.CreatedAt,
+		UpdatedAt: domain.UpdatedAt,
 	}
 }
 func FromPatientsesListDomain(domain []patientses.Domain) []PatientsesResponse{

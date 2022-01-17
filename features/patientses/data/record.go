@@ -1,22 +1,32 @@
 package data
 
 import (
+	doctorrecord "finalproject/features/doctor/data"
+	patientrecord "finalproject/features/patient/data"
 	"finalproject/features/patientses"
+	patscherecord "finalproject/features/patsche/data"
+
+	"time"
 
 	"gorm.io/gorm"
 )
 
 type Patientses struct {
 	gorm.Model
-	ID int `gorm:"primary_key"`
-	AdminID int
-	DoctorID int `gorm:"primary_key"`
-	PatientID int
-	PatientScheduleID int `gorm:"primary_key"`
-	Date string
-	Status string
+	ID                int `gorm:"primary_key"`
+	AdminID           int
+	DoctorID          int 
+	PatientID         int
+	PatientScheduleID int 
+	Date              string
+	Status            string
+	Patsche patscherecord.Patsche `gorm:"foreignKey:ID;references:PatientScheduleID"`
+	Doctor doctorrecord.Doctor `gorm:"foreignKey:ID;references:DoctorID"`
+	Patient patientrecord.Patient `gorm:"foreignKey:ID;references:PatientID"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
-func toDomain(pss Patientses) patientses.Domain {
+func ToDomain(pss Patientses) patientses.Domain {
 	return patientses.Domain{
 		ID:                pss.ID,
 		AdminID:           pss.AdminID,
@@ -25,6 +35,11 @@ func toDomain(pss Patientses) patientses.Domain {
 		PatientScheduleID: pss.PatientScheduleID,
 		Date:              pss.Date,
 		Status:            pss.Status,
+		Patient: patientrecord.ToDomain(pss.Patient),
+		Doctor: doctorrecord.ToDomain(pss.Doctor),
+		Patsche: patscherecord.ToDomain(pss.Patsche),
+		CreatedAt: pss.CreatedAt,
+		UpdatedAt: pss.UpdatedAt,
 	}
 }
 func fromDomain(domain patientses.Domain) Patientses {
@@ -36,6 +51,8 @@ func fromDomain(domain patientses.Domain) Patientses {
 		PatientScheduleID: domain.PatientScheduleID,
 		Date:              domain.Date,
 		Status:            domain.Status,
+		CreatedAt: domain.CreatedAt,
+		UpdatedAt: domain.UpdatedAt,
 	}
 }
 func toDomainUpdate(pss Patientses) patientses.Domain{
@@ -47,12 +64,14 @@ func toDomainUpdate(pss Patientses) patientses.Domain{
 		PatientScheduleID: pss.PatientScheduleID,
 		Date: pss.Date,
 		Status: pss.Status,
+		CreatedAt: pss.CreatedAt,
+		UpdatedAt: pss.UpdatedAt,
 	}
 }
 func toDomainList(data []Patientses) []patientses.Domain {
 	result := []patientses.Domain{}
 	for _, pss := range data{
-		result = append(result, toDomain(pss))
+		result = append(result, ToDomain(pss))
 	}
 	return result
 }

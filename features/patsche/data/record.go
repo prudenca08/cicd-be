@@ -15,9 +15,10 @@ type Patsche struct {
 	Time      string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+	
 }
 
-func toDomain(ds Patsche) patsche.Domain {
+func ToDomain(ds Patsche) patsche.Domain {
 	return patsche.Domain{
 		ID:        ds.ID,
 		AdminID:   ds.AdminID,
@@ -53,7 +54,7 @@ func toDomainList(data []Patsche) []patsche.Domain {
 	result := []patsche.Domain{}
 
 	for _, ds := range data {
-		result = append(result, toDomain(ds))
+		result = append(result, ToDomain(ds))
 	}
 	return result
 }

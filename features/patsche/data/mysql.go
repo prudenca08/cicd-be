@@ -30,7 +30,7 @@ func (rep *MysqlPatscheRepository) Create(dsID int, domain *patsche.Domain) (pat
 		return patsche.Domain{}, result.Error
 	}
 
-	return toDomain(dss), nil
+	return ToDomain(dss), nil
 
 }
 
@@ -90,5 +90,5 @@ func (rep *MysqlPatscheRepository) PatscheByID(id int) (patsche.Domain, error) {
 		return patsche.Domain{}, result.Error
 	}
 
-	return toDomain(ds), nil
+	return ToDomain(ds), nil
 }

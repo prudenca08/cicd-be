@@ -11,6 +11,7 @@ import (
 
 type CreatePatscheResponse struct {
 	Message   string    `json:"message"`
+	AdminID int `json:"adminid"`
 	ID        int       `json:"id:"`
 	Day       string    `json:"day"`
 	Time      string    `json:"time"`
@@ -48,6 +49,7 @@ func NewErrorResponse(c echo.Context, status int, err error) error {
 func FromDomainCreate(domain patsche.Domain) CreatePatscheResponse {
 	return CreatePatscheResponse{
 		Message:   "Create  Patient Schedule Success",
+		AdminID: domain.AdminID,
 		ID:        domain.ID,
 		Day:       domain.Day,
 		Time:      domain.Time,
@@ -58,6 +60,7 @@ func FromDomainCreate(domain patsche.Domain) CreatePatscheResponse {
 
 type PatscheResponse struct {
 	Message   string    `json:"message"`
+	AdminID int `json:"adminid"`
 	ID        int       `json:"id:"`
 	Day       string    `json:"day"`
 	Time      string    `json:"time"`
@@ -67,6 +70,7 @@ type PatscheResponse struct {
 
 func FromDomainAllPatsche(domain patsche.Domain) PatscheResponse {
 	return PatscheResponse{
+		AdminID: domain.AdminID,
 		ID:        domain.ID,
 		Day:       domain.Day,
 		Time:      domain.Time,
@@ -78,6 +82,7 @@ func FromDomainAllPatsche(domain patsche.Domain) PatscheResponse {
 func FromDomainUpdatePatsche(domain patsche.Domain) CreatePatscheResponse {
 	return CreatePatscheResponse{
 		Message:   "Update  Patient Schedule Success",
+		AdminID: domain.AdminID,
 		ID:        domain.ID,
 		Day:       domain.Day,
 		Time:      domain.Time,

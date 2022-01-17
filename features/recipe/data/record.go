@@ -1,7 +1,9 @@
 package data
 
 import (
+	patsesrecord "finalproject/features/patientses/data"
 	"finalproject/features/recipe"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -10,22 +12,23 @@ type Recipe struct {
 	gorm.Model
 	PatientSessionID int
 	ID int
-	DoctorID int
-	Day string
-	Time string
 	Title string
 	DetailRecipe string
+	Patientses patsesrecord.Patientses `gorm:"foreignKey:ID;references:PatientSessionID"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	
 }
 
-func toDomain(rec Recipe) recipe.Domain{
+func ToDomain(rec Recipe) recipe.Domain{
 	return recipe.Domain{
 		PatientSessionID: rec.PatientSessionID,
 		ID: rec.ID,
-		DoctorID: rec.DoctorID,
-		Day : rec.Day,
-		Time: rec.Time,
 		Title: rec.Title,
 		DetailRecipe: rec.DetailRecipe,
+		Patientses: patsesrecord.ToDomain(rec.Patientses),
+		CreatedAt: rec.CreatedAt,
+		UpdatedAt: rec.UpdatedAt,
 	}
 }
 
@@ -33,11 +36,10 @@ func fromDomain(domain recipe.Domain) Recipe{
 	return Recipe{
 		PatientSessionID: domain.PatientSessionID,
 		ID: domain.ID,
-		DoctorID: domain.DoctorID,
-		Day: domain.Day,
-		Time: domain.Time,
 		Title: domain.Title,
 		DetailRecipe: domain.DetailRecipe,
+		CreatedAt: domain.CreatedAt,
+		UpdatedAt: domain.UpdatedAt,
 	}
 }
 
@@ -45,18 +47,17 @@ func toDomainUpdate(rec Recipe) recipe.Domain{
 	return recipe.Domain{
 		PatientSessionID: rec.PatientSessionID,
 		ID: rec.ID,
-		DoctorID: rec.DoctorID,
-		Day: rec.Day,
-		Time: rec.Time,
 		Title: rec.Title,
 		DetailRecipe: rec.DetailRecipe,
+		CreatedAt: rec.CreatedAt,
+		UpdatedAt: rec.UpdatedAt,
 	}
 }
 
 func toDomainList(data []Recipe) []recipe.Domain{
 	result := []recipe.Domain{}
 	for _, rec := range data {
-		result = append(result, toDomain(rec))
+		result = append(result, ToDomain(rec))
 	}
 	return result
 }

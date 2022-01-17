@@ -1,5 +1,12 @@
 package patientses
 
+import (
+	doctorentity "finalproject/features/doctor"
+	patiententity "finalproject/features/patient"
+	patscheentity "finalproject/features/patsche"
+	"time"
+)
+
 type Domain struct {
 	ID                int
 	AdminID           int
@@ -8,7 +15,11 @@ type Domain struct {
 	PatientScheduleID int
 	Date              string
 	Status            string
-	Message           string
+	Patient patiententity.Domain
+	Doctor doctorentity.Domain
+	Patsche patscheentity.Domain
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }
 
 type Service interface {

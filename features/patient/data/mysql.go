@@ -30,7 +30,7 @@ func (rep *MysqlPatientRepository) Create(patID int, domain *patient.Domain) (pa
 		return patient.Domain{}, result.Error
 	}
 
-	return toDomain(pat), nil
+	return ToDomain(pat), nil
 
 }
 
@@ -90,5 +90,5 @@ func (rep *MysqlPatientRepository) PatientByID(id int) (patient.Domain, error) {
 		return patient.Domain{}, result.Error
 	}
 
-	return toDomain(pat), nil
+	return ToDomain(pat), nil
 }

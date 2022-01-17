@@ -16,6 +16,23 @@ func NewMysqlPatientsesRepository(conn *gorm.DB) patientses.Repository {
 		Conn: conn,
 	}
 }
+
+func (rep *MysqlPatientsesRepository) AllPatientses() ([]patientses.Domain, error){
+	
+	var pss []Patientses
+	
+	result := rep.Conn.Preload("Doctor").Preload("Patient").Preload("Patsche").Find(&pss)
+
+	// ss, _ := json.MarshalIndent(pss, "", " ")
+	// fmt.Println(string(ss))
+	
+	
+	if result.Error != nil {
+		return []patientses.Domain{}, result.Error
+	}
+	return toDomainList(pss), nil
+}
+
 func (rep *MysqlPatientsesRepository) Create(pssID int, domain *patientses.Domain) (patientses.Domain,error){
 	dss := fromDomain(*domain)
 	dss.AdminID = pssID
@@ -23,21 +40,10 @@ func (rep *MysqlPatientsesRepository) Create(pssID int, domain *patientses.Domai
 	if result.Error != nil {
 		return patientses.Domain{}, result.Error
 	}
-	return toDomain(dss), nil
+	return ToDomain(dss), nil
 }
 
 
-func (rep *MysqlPatientsesRepository) AllPatientses() ([]patientses.Domain, error){
-	
-	var pss []Patientses
-	
-	result := rep.Conn.Find(&pss)
-	
-	if result.Error != nil {
-		return []patientses.Domain{}, result.Error
-	}
-	return toDomainList(pss), nil
-}
 
 func (rep *MysqlPatientsesRepository) Update(admID int, pssID int, domain *patientses.Domain)(patientses.Domain, error){
 	patientsesUpdate := fromDomain(*domain)
@@ -72,5 +78,5 @@ func (rep *MysqlPatientsesRepository) PatientsesByID(id int) (patientses.Domain,
 	if result.Error != nil {
 		return patientses.Domain{}, result.Error
 	}
-	return toDomain(pss), nil
+	return ToDomain(pss), nil
 }

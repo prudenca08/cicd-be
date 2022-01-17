@@ -37,11 +37,14 @@ func (ctrl *PatientsesHandler) Create(c echo.Context) error {
 }
 
 func (ctrl *PatientsesHandler) AllPatientses(c echo.Context) error {
+	
 	result, err := ctrl.patientsesService.AllPatientses()
+	
 	if err != nil {
 		return response.NewErrorResponse(c, http.StatusBadRequest, err)
 		
 	}
+	
 	return response.NewSuccessResponse(c, response.FromPatientsesListDomain(result))
 }
 func (ctrl *PatientsesHandler) Update(c echo.Context) error{

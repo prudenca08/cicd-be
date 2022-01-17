@@ -1,13 +1,14 @@
 package patsche
 
-import "time"
+import (
+	"time"
+)
 
 type Domain struct {
 	ID      int
 	AdminID int
 	Day     string
 	Time    string
-
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

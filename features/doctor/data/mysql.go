@@ -27,7 +27,7 @@ func (rep *MysqlDoctorRepository) Register(domain *doctor.Domain) (doctor.Domain
 		return doctor.Domain{}, result.Error
 	}
 
-	return toDomain(doc), nil
+	return ToDomain(doc), nil
 }
 
 func (rep *MysqlDoctorRepository) Login(username, password string) (doctor.Domain, error) {
@@ -38,7 +38,7 @@ func (rep *MysqlDoctorRepository) Login(username, password string) (doctor.Domai
 		return doctor.Domain{}, bussiness.ErrEmail
 	}
 
-	return toDomain(doc), nil
+	return ToDomain(doc), nil
 }
 func (rep *MysqlDoctorRepository) Update(docID int, domain *doctor.Domain) (doctor.Domain, error) {
 
@@ -64,7 +64,7 @@ func (rep *MysqlDoctorRepository) DoctorByID(id int) (doctor.Domain, error) {
 		return doctor.Domain{}, result.Error
 	}
 
-	return toDomain(doc), nil
+	return ToDomain(doc), nil
 }
 func (rep *MysqlDoctorRepository) Delete(docID int, id int) (string, error) {
 	rec := Doctor{}
