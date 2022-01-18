@@ -57,11 +57,17 @@ func init() {
 func dbMigrate(db *gorm.DB) {
 	db.AutoMigrate(
 		&_adminRepo.Admins{},
-		&_doctorRepo.Doctor{},
 		&_docsesRepo.Docses{},
+	)
+	db.AutoMigrate(
+		&_doctorRepo.Doctor{},
+	)
+	db.AutoMigrate(
 		&_patientRepo.Patient{},
-		&_patientsesRepo.Patientses{},
 		&_patscheRepo.Patsche{},
+	)
+	db.AutoMigrate(
+		&_patientsesRepo.Patientses{},
 	)
 }
 
