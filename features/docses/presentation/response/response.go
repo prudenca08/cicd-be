@@ -57,7 +57,6 @@ func FromDomainCreate(domain docses.Domain) CreateDocsesResponse {
 }
 
 type DocsesResponse struct {
-	Message   string    `json:"message"`
 	ID        int       `json:"id:"`
 	Day       string    `json:"day"`
 	Time      string    `json:"time"`

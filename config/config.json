@@ -11,7 +11,7 @@
     "port": "3306",
     "user": "root",
     "pass": "",
-    "name": "coba"
+    "name": "finalproject"
   },
   "jwt": {
     "secret": "finalproject",

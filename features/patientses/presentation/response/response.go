@@ -14,7 +14,6 @@ import (
 type CreatePatientsesResponse struct {
 	Message string `json:"message"`
 	ID                int    `json:"id"`
-	AdminID           int `json:"adminid"`
 	DoctorID          int `json:"doctorid"`
 	PatientID         int `json:"patientid"`
 	PatientScheduleID int `json:"patientscheduleid"`
@@ -54,7 +53,6 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse{
 	return CreatePatientsesResponse{
 		Message: "Create Patient Session Success",
 		ID: domain.ID,
-		AdminID: domain.AdminID,
 		DoctorID: domain.DoctorID,
 		PatientID: domain.PatientID ,
 		PatientScheduleID: domain.PatientScheduleID,
@@ -68,7 +66,6 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse{
 }
 type PatientsesResponse struct{
 	ID                int `json:"id"`
-	AdminID			  int `json:"adminid"`
 	DoctorID          int `json:"doctorid"`
 	PatientID         int `json:"patientid"`
 	PatientScheduleID int `json:"patientscheduleid"`
@@ -86,7 +83,6 @@ type PatientsesResponse struct{
 func FromDomainAllPatientses(domain patientses.Domain) PatientsesResponse{
 	return PatientsesResponse{
 		ID: domain.ID,
-		AdminID: domain.AdminID,
 		DoctorID: domain.DoctorID,
 		PatientID: domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
@@ -106,7 +102,6 @@ func FromDomainUpdatePatientses(domain patientses.Domain) CreatePatientsesRespon
 	return CreatePatientsesResponse{
 		Message : "Update Patient Session Success",
 		ID: domain.ID,
-		AdminID: domain.AdminID,
 		DoctorID: domain.DoctorID,
 		PatientID: domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
