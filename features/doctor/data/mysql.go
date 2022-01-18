@@ -1,8 +1,10 @@
 package data
 
 import (
+	"encoding/json"
 	"finalproject/features/doctor"
 	"finalproject/features/doctor/bussiness"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -89,6 +91,9 @@ func (rep *MysqlDoctorRepository) AllDoctor() ([]doctor.Domain, error) {
 	var pat []Doctor
 
 	result := rep.Conn.Preload("DoctorSession").Find(&pat)
+
+	ss, _ := json.MarshalIndent(pat, "", " ")
+	fmt.Println(string(ss))
 
 	if result.Error != nil {
 		return []doctor.Domain{}, result.Error

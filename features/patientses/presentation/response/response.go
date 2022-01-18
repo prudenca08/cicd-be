@@ -18,6 +18,8 @@ type CreatePatientsesResponse struct {
 	DoctorID          int `json:"doctorid"`
 	PatientID         int `json:"patientid"`
 	PatientScheduleID int `json:"patientscheduleid"`
+	Title string `json:"title"`
+	DetailRecipe string `json:"detailrecipe"`
 	Status  string `json:"status"`
 	Date    string `json:"date"`
 	CreatedAt time.Time `json:"created_at"`
@@ -56,6 +58,8 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse{
 		DoctorID: domain.DoctorID,
 		PatientID: domain.PatientID ,
 		PatientScheduleID: domain.PatientScheduleID,
+		Title: domain.Title,
+		DetailRecipe: domain.DetailRecipe,
 		Status: domain.Status,
 		Date: domain.Date,
 		CreatedAt: domain.CreatedAt,
@@ -68,6 +72,8 @@ type PatientsesResponse struct{
 	DoctorID          int `json:"doctorid"`
 	PatientID         int `json:"patientid"`
 	PatientScheduleID int `json:"patientscheduleid"`
+	Title string `json:"title"`
+	DetailRecipe string `json:"detailrecipe"`
 	Status string `json:"status"`
 	Date string `json:"date"`
 	Patsche patscheresponse.PatscheResponse `json:"patsche"`
@@ -84,6 +90,8 @@ func FromDomainAllPatientses(domain patientses.Domain) PatientsesResponse{
 		DoctorID: domain.DoctorID,
 		PatientID: domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
+		Title: domain.Title,
+		DetailRecipe: domain.DetailRecipe,
 		Status: domain.Status,
 		Date: domain.Date,
 		Patsche: patscheresponse.FromDomainAllPatsche(domain.Patsche),
@@ -102,6 +110,8 @@ func FromDomainUpdatePatientses(domain patientses.Domain) CreatePatientsesRespon
 		DoctorID: domain.DoctorID,
 		PatientID: domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
+		Title: domain.Title,
+		DetailRecipe: domain.DetailRecipe,
 		Status: domain.Status,
 		Date: domain.Date,
 		CreatedAt: domain.CreatedAt,

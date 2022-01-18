@@ -1,20 +1,20 @@
 {
-	"debug": true,
-	"server": {
-		"address": ":8080"
-	},
-	"context": {
-		"timeout": 2
-	},
-	"database": {
-		"host": "localhost",
-		"port": "3306",
-		"user": "root",
-		"pass": "Email123?",
-		"name": "finalproject"
-	},
-	"jwt": {
-		"secret": "finalproject",
-		"expired": 1
-	} 
+  "debug": true,
+  "server": {
+    "address": ":8080"
+  },
+  "context": {
+    "timeout": 2
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": "3306",
+    "user": "root",
+    "pass": "",
+    "name": "finalproject"
+  },
+  "jwt": {
+    "secret": "finalproject",
+    "expired": 1
+  }
 }

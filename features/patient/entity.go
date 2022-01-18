@@ -31,3 +31,4 @@ type Repository interface {
 	Delete(patID, id int) (string, error)
 	PatientByID(id int) (Domain, error)
 }
+

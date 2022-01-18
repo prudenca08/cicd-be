@@ -14,6 +14,8 @@ type Domain struct {
 	PatientID         int
 	PatientScheduleID int
 	Date              string
+	Title             string
+	DetailRecipe      string
 	Status            string
 	Patient patiententity.Domain
 	Doctor doctorentity.Domain

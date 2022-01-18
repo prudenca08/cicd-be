@@ -13,14 +13,13 @@ import (
 	patientsesDB "finalproject/features/patientses/data"
 	"finalproject/features/patsche"
 	patscheDB "finalproject/features/patsche/data"
-	"finalproject/features/recipe"
-	recipeDB "finalproject/features/recipe/data"
 
 	"gorm.io/gorm"
 )
 
 func NewAdminRepository(conn *gorm.DB) admins.Repository {
 	return adminDB.NewMysqlAdminRepository(conn)
+
 }
 func NewDoctorRepository(conn *gorm.DB) doctor.Repository {
 	return doctorDB.NewMysqlDoctorRepository(conn)
@@ -37,7 +36,4 @@ func NewPatientsesRepository(conn *gorm.DB) patientses.Repository{
 }
 func NewPatscheRepository(conn *gorm.DB) patsche.Repository {
 	return patscheDB.NewMysqlPatscheRepository(conn)
-}
-func NewRecipeRepository(conn *gorm.DB) recipe.Repository{
-	return recipeDB.NewMysqlRecipeRepository(conn)
 }
