@@ -12,18 +12,18 @@ import (
 )
 
 type CreatePatientsesResponse struct {
-	Message string `json:"message"`
-	ID                int    `json:"id"`
-	AdminID           int `json:"adminid"`
-	DoctorID          int `json:"doctorid"`
-	PatientID         int `json:"patientid"`
-	PatientScheduleID int `json:"patientscheduleid"`
-	Title string `json:"title"`
-	DetailRecipe string `json:"detailrecipe"`
-	Status  string `json:"status"`
-	Date    string `json:"date"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Message           string    `json:"message"`
+	ID                int       `json:"id"`
+	DoctorID          int       `json:"doctorid"`
+	PatientID         int       `json:"patientid"`
+	PatientScheduleID int       `json:"patientscheduleid"`
+	Symptoms          string    `json:"symptoms`
+	Title             string    `json:"title"`
+	DetailRecipe      string    `json:"detailrecipe"`
+	Status            string    `json:"status"`
+	Date              string    `json:"date"`
+	CreatedAt         time.Time `json:"created_at"`
+	UpdatedAt         time.Time `json:"updated_at"`
 }
 type BaseResponse struct {
 	Meta struct {
@@ -34,7 +34,7 @@ type BaseResponse struct {
 	Data interface{} `json:"data"`
 }
 
-func NewSuccessResponse(c echo.Context, param interface{}) error{
+func NewSuccessResponse(c echo.Context, param interface{}) error {
 	response := BaseResponse{}
 	response.Meta.Status = http.StatusOK
 	response.Meta.Message = "Success"
@@ -50,75 +50,76 @@ func NewErrorResponse(c echo.Context, status int, err error) error {
 	return c.JSON(status, response)
 }
 
-func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse{
+func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse {
 	return CreatePatientsesResponse{
-		Message: "Create Patient Session Success",
-		ID: domain.ID,
-		AdminID: domain.AdminID,
-		DoctorID: domain.DoctorID,
-		PatientID: domain.PatientID ,
+		Message:           "Create Patient Session Success",
+		ID:                domain.ID,
+		DoctorID:          domain.DoctorID,
+		PatientID:         domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
-		Title: domain.Title,
-		DetailRecipe: domain.DetailRecipe,
-		Status: domain.Status,
-		Date: domain.Date,
-		CreatedAt: domain.CreatedAt,
-		UpdatedAt: domain.UpdatedAt,
+		Symptoms:          domain.Symptoms,
+		Title:             domain.Title,
+		DetailRecipe:      domain.DetailRecipe,
+		Status:            domain.Status,
+		Date:              domain.Date,
+		CreatedAt:         domain.CreatedAt,
+		UpdatedAt:         domain.UpdatedAt,
 	}
 }
-type PatientsesResponse struct{
-	ID                int `json:"id"`
-	AdminID			  int `json:"adminid"`
-	DoctorID          int `json:"doctorid"`
-	PatientID         int `json:"patientid"`
-	PatientScheduleID int `json:"patientscheduleid"`
-	Title string `json:"title"`
-	DetailRecipe string `json:"detailrecipe"`
-	Status string `json:"status"`
-	Date string `json:"date"`
-	Patsche patscheresponse.PatscheResponse `json:"patsche"`
-	Patient patientresponse.PatientResponse `json:"patient"`
-	Doctor doctorresponse.DoctorResponse `json:"doctor"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+
+type PatientsesResponse struct {
+	ID                int                             `json:"id"`
+	DoctorID          int                             `json:"doctorid"`
+	PatientID         int                             `json:"patientid"`
+	PatientScheduleID int                             `json:"patientscheduleid"`
+	Symptoms          string                          `json:"symptoms`
+	Title             string                          `json:"title"`
+	DetailRecipe      string                          `json:"detailrecipe"`
+	Status            string                          `json:"status"`
+	Date              string                          `json:"date"`
+	Patsche           patscheresponse.PatscheResponse `json:"patsche"`
+	Patient           patientresponse.PatientResponse `json:"patient"`
+	Doctor            doctorresponse.DoctorResponse   `json:"doctor"`
+	CreatedAt         time.Time                       `json:"created_at"`
+	UpdatedAt         time.Time                       `json:"updated_at"`
 }
 
-func FromDomainAllPatientses(domain patientses.Domain) PatientsesResponse{
+func FromDomainAllPatientses(domain patientses.Domain) PatientsesResponse {
 	return PatientsesResponse{
-		ID: domain.ID,
-		AdminID: domain.AdminID,
-		DoctorID: domain.DoctorID,
-		PatientID: domain.PatientID,
+		ID:                domain.ID,
+		DoctorID:          domain.DoctorID,
+		PatientID:         domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
-		Title: domain.Title,
-		DetailRecipe: domain.DetailRecipe,
-		Status: domain.Status,
-		Date: domain.Date,
-		Patsche: patscheresponse.FromDomainAllPatsche(domain.Patsche),
-		Doctor: doctorresponse.FromDomainAllDoctor(domain.Doctor),
-		Patient: patientresponse.FromDomainAllPatient(domain.Patient),
-		CreatedAt: domain.CreatedAt,
-		UpdatedAt: domain.UpdatedAt,
+		Symptoms:          domain.Symptoms,
+		Title:             domain.Title,
+		DetailRecipe:      domain.DetailRecipe,
+		Status:            domain.Status,
+		Date:              domain.Date,
+		Patsche:           patscheresponse.FromDomainAllPatsche(domain.Patsche),
+		Doctor:            doctorresponse.FromDomainAllDoctor(domain.Doctor),
+		Patient:           patientresponse.FromDomainAllPatient(domain.Patient),
+		CreatedAt:         domain.CreatedAt,
+		UpdatedAt:         domain.UpdatedAt,
 	}
 }
 
-func FromDomainUpdatePatientses(domain patientses.Domain) CreatePatientsesResponse{
+func FromDomainUpdatePatientses(domain patientses.Domain) CreatePatientsesResponse {
 	return CreatePatientsesResponse{
-		Message : "Update Patient Session Success",
-		ID: domain.ID,
-		AdminID: domain.AdminID,
-		DoctorID: domain.DoctorID,
-		PatientID: domain.PatientID,
+		Message:           "Update Patient Session Success",
+		ID:                domain.ID,
+		DoctorID:          domain.DoctorID,
+		PatientID:         domain.PatientID,
 		PatientScheduleID: domain.PatientScheduleID,
-		Title: domain.Title,
-		DetailRecipe: domain.DetailRecipe,
-		Status: domain.Status,
-		Date: domain.Date,
-		CreatedAt: domain.CreatedAt,
-		UpdatedAt: domain.UpdatedAt,
+		Symptoms:          domain.Symptoms,
+		Title:             domain.Title,
+		DetailRecipe:      domain.DetailRecipe,
+		Status:            domain.Status,
+		Date:              domain.Date,
+		CreatedAt:         domain.CreatedAt,
+		UpdatedAt:         domain.UpdatedAt,
 	}
 }
-func FromPatientsesListDomain(domain []patientses.Domain) []PatientsesResponse{
+func FromPatientsesListDomain(domain []patientses.Domain) []PatientsesResponse {
 	var response []PatientsesResponse
 	for _, value := range domain {
 		response = append(response, FromDomainAllPatientses(value))
