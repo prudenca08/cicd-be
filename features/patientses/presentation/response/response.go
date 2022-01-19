@@ -12,6 +12,7 @@ import (
 )
 
 type CreatePatientsesResponse struct {
+
 	Message           string    `json:"message"`
 	ID                int       `json:"id"`
 	DoctorID          int       `json:"doctorid"`
@@ -25,6 +26,7 @@ type CreatePatientsesResponse struct {
 	CreatedAt         time.Time `json:"created_at"`
 	UpdatedAt         time.Time `json:"updated_at"`
 }
+
 type BaseResponse struct {
 	Meta struct {
 		Status   int      `json:"rc"`
@@ -55,7 +57,7 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse {
 		Message:           "Create Patient Session Success",
 		ID:                domain.ID,
 		DoctorID:          domain.DoctorID,
-		PatientID:         domain.PatientID,
+		PatientID:         domain.PatientID,		
 		PatientScheduleID: domain.PatientScheduleID,
 		Symptoms:          domain.Symptoms,
 		Title:             domain.Title,
@@ -66,6 +68,7 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse {
 		UpdatedAt:         domain.UpdatedAt,
 	}
 }
+
 
 type PatientsesResponse struct {
 	ID                int                             `json:"id"`
