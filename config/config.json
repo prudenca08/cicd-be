@@ -7,14 +7,14 @@
     "timeout": 2
   },
   "database": {
-    "host": "127.0.0.1",
+    "host": "hms",
     "port": "3306",
     "user": "root",
-	"pass": "Email123?",
-    "name": "finalproject"
+    "pass": "123456",
+    "name": "db_hms"
   },
   "jwt": {
-    "secret": "finalproject",
+    "secret": "db_hms",
     "expired": 1
   }
 }
