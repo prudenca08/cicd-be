@@ -27,7 +27,7 @@ func TestMain(m *testing.M) {
 		Gender    : "pria",
 		Phone     : "0987654321",
 		Address   : "yogyakarta",
-		Symptoms  : "gatal gatal ringan",
+	
 	}
 }
 
@@ -43,7 +43,7 @@ func TestAllPatient(t *testing.T) {
 				Gender    : "pria",
 				Phone     : "0987654321",
 				Address   : "yogyakarta",
-				Symptoms  : "gatal gatal ringan",
+				
 			},
 			{
 				ID        : 6,
@@ -54,7 +54,7 @@ func TestAllPatient(t *testing.T) {
 				Gender    : "pria",
 				Phone     : "3254365465",
 				Address   : "yogyakarta",
-				Symptoms  : "sakit hati",
+				
 			},
 		}
 		mockPatientRepository.On("AllPatient").Return(expectedReturn, nil).Once()
@@ -81,7 +81,7 @@ func TestCreate(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			
 		}
 		inputService := patient.Domain{
 			ID        : 1,
@@ -92,7 +92,7 @@ func TestCreate(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			
 		}
 		mockPatientRepository.On("Create", mock.Anything, mock.Anything).Return(outputDomain, nil).Once()
 		resp, err := patientService.Create(inputService.AdminID, &inputService)
@@ -111,7 +111,7 @@ func TestCreate(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			 
 		}
 		mockPatientRepository.On("Create", mock.Anything, mock.Anything).Return(outputDomain, assert.AnError).Once()
 
@@ -132,7 +132,7 @@ func TestUpdate(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			
 		}
 		inputService := patient.Domain{
 			ID        : 1,
@@ -143,7 +143,7 @@ func TestUpdate(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			
 		}
 		mockPatientRepository.On("Update", mock.Anything, mock.Anything, mock.Anything).Return(outputDomain, nil).Once()
 		resp, err := patientService.Update(inputService.AdminID, inputService.ID, &inputService)
@@ -162,7 +162,7 @@ func TestUpdate(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			
 		}
 		mockPatientRepository.On("Update", mock.Anything, mock.Anything, mock.Anything).Return(outputDomain, assert.AnError).Once()
 		resp, err := patientService.Update(inputService.AdminID, inputService.ID, &inputService)
@@ -199,7 +199,7 @@ func TestPatientByID(t *testing.T) {
 			Gender    : "pria",
 			Phone     : "0987654321",
 			Address   : "yogyakarta",
-			Symptoms  : "gatal gatal ringan",
+			
 		}
 		mockPatientRepository.On("PatientByID", mock.Anything).Return(expectedReturn, nil).Once()
 		_, err := patientService.PatientByID(1)

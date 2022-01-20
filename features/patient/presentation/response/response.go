@@ -18,7 +18,6 @@ type CreatePatientResponse struct {
 	Gender    string    `json:"gender"`
 	Phone     string    `json:"phone"`
 	Address   string    `json:"address"`
-	Symptoms  string    `json:"symptoms"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -60,7 +59,6 @@ func FromDomainCreate(domain patient.Domain) CreatePatientResponse {
 		Gender:    domain.Gender,
 		Phone:     domain.Phone,
 		Address:   domain.Address,
-		Symptoms:  domain.Symptoms,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 	}
@@ -74,7 +72,6 @@ type PatientResponse struct {
 	Gender    string    `json:"gender"`
 	Phone     string    `json:"phone"`
 	Address   string    `json:"address"`
-	Symptoms  string    `json:"symptoms"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -88,7 +85,6 @@ func FromDomainAllPatient(domain patient.Domain) PatientResponse {
 		Gender:    domain.Gender,
 		Phone:     domain.Phone,
 		Address:   domain.Address,
-		Symptoms:  domain.Symptoms,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 	}
@@ -104,7 +100,6 @@ func FromDomainUpdatePatient(domain patient.Domain) CreatePatientResponse {
 		Gender:    domain.Gender,
 		Phone:     domain.Phone,
 		Address:   domain.Address,
-		Symptoms:  domain.Symptoms,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 	}

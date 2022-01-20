@@ -9,7 +9,7 @@ type Patient struct {
 	Gender   string `json:"gender"`
 	Phone    string `json:"phone"`
 	Address  string `json:"address"`
-	Symptoms string `json:"symptoms"`
+	
 }
 
 func (req *Patient) ToDomain() *patient.Domain {
@@ -20,6 +20,6 @@ func (req *Patient) ToDomain() *patient.Domain {
 		Gender:   req.Gender,
 		Phone:    req.Phone,
 		Address:  req.Address,
-		Symptoms: req.Symptoms,
+		
 	}
 }

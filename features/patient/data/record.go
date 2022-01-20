@@ -17,7 +17,6 @@ type Patient struct {
 	Gender    string
 	Phone     string
 	Address   string
-	Symptoms  string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -32,7 +31,6 @@ func ToDomain(pat Patient) patient.Domain {
 		Gender:    pat.Gender,
 		Phone:     pat.Phone,
 		Address:   pat.Address,
-		Symptoms:  pat.Symptoms,
 		CreatedAt: pat.CreatedAt,
 		UpdatedAt: pat.UpdatedAt,
 	}
@@ -48,7 +46,6 @@ func fromDomain(domain patient.Domain) Patient {
 		Gender:    domain.Gender,
 		Phone:     domain.Phone,
 		Address:   domain.Address,
-		Symptoms:  domain.Symptoms,
 		CreatedAt: domain.CreatedAt,
 		UpdatedAt: domain.UpdatedAt,
 	}
@@ -64,7 +61,6 @@ func toDomainUpdate(pat Patient) patient.Domain {
 		Gender:    pat.Gender,
 		Phone:     pat.Phone,
 		Address:   pat.Address,
-		Symptoms:  pat.Symptoms,
 		CreatedAt: pat.CreatedAt,
 		UpdatedAt: pat.UpdatedAt,
 	}

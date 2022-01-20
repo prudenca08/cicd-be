@@ -11,7 +11,6 @@ type Domain struct {
 	Gender    string
 	Phone     string
 	Address   string
-	Symptoms  string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
