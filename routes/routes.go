@@ -42,6 +42,7 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	admins.POST("/login", cl.AdminRouter.Login)
 	admins.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 	admins.DELETE("/delete-doctor/:id", cl.DoctorRouter.Delete, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
+	admins.PUT("/change-password-doctor/:id", cl.DoctorRouter.ChangePass, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 
 	admins.POST("/create-patsche", cl.PatscheRouter.Create, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 	admins.PUT("/update-patsche/:id", cl.PatscheRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
@@ -64,6 +65,7 @@ func (cl *RouteList) RouteRegister(e *echo.Echo) {
 	doctor.POST("/register", cl.DoctorRouter.Register, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationAdmin())
 	doctor.POST("/login", cl.DoctorRouter.Login)
 	doctor.PUT("/update-doctor/:id", cl.DoctorRouter.Update, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
+	doctor.PUT("/change-password/:id", cl.DoctorRouter.ChangePass, middleware.JWTWithConfig(cl.JWTMiddleware), RoleValidationDoctor())
 
 
 	//Doctor

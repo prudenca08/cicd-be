@@ -1,3 +1,3 @@
 package config
 
-const JwtSecret string = "finalproject"
+const JwtSecret string = "db_hms"

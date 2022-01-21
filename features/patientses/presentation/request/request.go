@@ -7,7 +7,7 @@ type Patientses struct {
 	DoctorID          int    `json:"doctorid"`
 	PatientID         int    `json:"patientid"`
 	PatientScheduleID int    `json:"patientscheduleid"`
-    Symptoms          string `json:"symptoms"`
+	Symptoms          string `json:"symptoms"`
 	Title             string `json:"title"`
 	DetailRecipe      string `json:"detailrecipe"`
 	Status            string `json:"status"`

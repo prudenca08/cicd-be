@@ -85,6 +85,16 @@ func toDomainUpdate(doc Doctor) doctor.Domain {
 		DoctorSession:   docsesentity.ToDomain(doc.DoctorSession),
 	}
 }
+
+func toDomainUpdatePass(doc Doctor) doctor.Domain {
+	return doctor.Domain{
+		ID:        doc.ID,
+		Password:  doc.Password,
+		CreatedAt: doc.CreatedAt,
+		UpdatedAt: doc.UpdatedAt,
+	}
+}
+
 func toDomainList(data []Doctor) []doctor.Domain {
 	result := []doctor.Domain{}
 

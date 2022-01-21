@@ -15,6 +15,9 @@ type CreatePatientsesResponse struct {
 
 	Message           string    `json:"message"`
 	ID                int       `json:"id"`
+	DoctorID          int       `json:"doctorid"`
+	PatientID         int       `json:"patientid"`
+	PatientScheduleID int       `json:"patientscheduleid"`
 	Symptoms          string    `json:"symptoms"`
 	Title             string    `json:"title"`
 	DetailRecipe      string    `json:"detailrecipe"`
@@ -66,6 +69,9 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse {
 
 type PatientsesResponse struct {
 	ID                int                             `json:"id"`
+	DoctorID          int                             `json:"doctorid"`
+	PatientID         int                             `json:"patientid"`
+	PatientScheduleID int                             `json:"patientscheduleid"`
 	Symptoms          string                          `json:"symptoms"`
 	Title             string                          `json:"title"`
 	DetailRecipe      string                          `json:"detailrecipe"`

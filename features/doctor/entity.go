@@ -26,17 +26,19 @@ type Domain struct {
 type Service interface {
 	Register(domain *Domain) (Domain, error)
 	Login(username, password string) (Domain, error)
-	Update(docID int, domain *Domain) (Domain, error)
-	DoctorByID(id int) (Domain, error)
-	Delete(docID, id int) (string, error)
 	AllDoctor() ([]Domain, error)
+	Update(docID int, domain *Domain) (Domain, error)
+	Delete(docID, id int) (string, error)
+	DoctorByID(id int) (Domain, error)
+	ChangePass(docID int, domain *Domain) (Domain, error)
 }
 
 type Repository interface {
 	Register(domain *Domain) (Domain, error)
 	Login(username, password string) (Domain, error)
-	Update(docID int, domain *Domain) (Domain, error)
-	DoctorByID(id int) (Domain, error)
-	Delete(docID, id int) (string, error)
 	AllDoctor() ([]Domain, error)
+	Update(docID int, domain *Domain) (Domain, error)
+	Delete(docID, id int) (string, error)
+	DoctorByID(id int) (Domain, error)
+	ChangePass(docID int, domain *Domain) (Domain, error)
 }

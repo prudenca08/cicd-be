@@ -17,6 +17,17 @@ type Doctor struct {
 	Status          string `json:"status"`
 }
 
+type ChangePass struct {
+	Password    string `json:"newpassword"`
+	ConfirmPass string `json:"confirmpassword"`
+}
+
+func (req *ChangePass) ToDomainChange() *doctor.Domain {
+	return &doctor.Domain{
+		Password: req.Password,
+	}
+}
+
 func (req *Doctor) ToDomain() *doctor.Domain {
 	return &doctor.Domain{
 		DoctorSessionID: req.DoctorSessionID,
