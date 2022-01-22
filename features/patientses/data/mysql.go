@@ -23,8 +23,6 @@ func (rep *MysqlPatientsesRepository) AllPatientses() ([]patientses.Domain, erro
 	
 	result := rep.Conn.Preload("Doctor").Preload("Patient").Preload("Patsche").Find(&pss)
 
-	// ss, _ := json.MarshalIndent(pss, "", " ")
-	// fmt.Println(string(ss))
 	
 	
 	if result.Error != nil {
@@ -35,6 +33,7 @@ func (rep *MysqlPatientsesRepository) AllPatientses() ([]patientses.Domain, erro
 
 func (rep *MysqlPatientsesRepository) Create(pssID int, domain *patientses.Domain) (patientses.Domain,error){
 	dss := fromDomain(*domain)
+
 	dss.AdminID = pssID
 	result := rep.Conn.Create(&dss)
 	if result.Error != nil {

@@ -18,11 +18,11 @@ type CreatePatientsesResponse struct {
 	DoctorID          int       `json:"doctorid"`
 	PatientID         int       `json:"patientid"`
 	PatientScheduleID int       `json:"patientscheduleid"`
+	Date              string    `json:"date"`
 	Symptoms          string    `json:"symptoms"`
 	Title             string    `json:"title"`
 	DetailRecipe      string    `json:"detailrecipe"`
 	Status            string    `json:"status"`
-	Date              string    `json:"date"`
 	CreatedAt         time.Time `json:"created_at"`
 	UpdatedAt         time.Time `json:"updated_at"`
 }
@@ -56,11 +56,14 @@ func FromDomainCreate(domain patientses.Domain) CreatePatientsesResponse {
 	return CreatePatientsesResponse{
 		Message:           "Create Patient Session Success",
 		ID:                domain.ID,
+		DoctorID:          domain.DoctorID,
+		PatientID:         domain.PatientID,
+		PatientScheduleID: domain.PatientScheduleID,
 		Symptoms:          domain.Symptoms,
+		Date:              domain.Date,
 		Title:             domain.Title,
 		DetailRecipe:      domain.DetailRecipe,
 		Status:            domain.Status,
-		Date:              domain.Date,
 		CreatedAt:         domain.CreatedAt,
 		UpdatedAt:         domain.UpdatedAt,
 	}
@@ -73,10 +76,10 @@ type PatientsesResponse struct {
 	PatientID         int                             `json:"patientid"`
 	PatientScheduleID int                             `json:"patientscheduleid"`
 	Symptoms          string                          `json:"symptoms"`
+	Date              string                          `json:"date"`
 	Title             string                          `json:"title"`
 	DetailRecipe      string                          `json:"detailrecipe"`
 	Status            string                          `json:"status"`
-	Date              string                          `json:"date"`
 	Patsche           patscheresponse.PatscheResponse `json:"patsche"`
 	Patient           patientresponse.PatientResponse `json:"patient"`
 	Doctor            doctorresponse.DoctorResponse   `json:"doctor"`
@@ -87,11 +90,14 @@ type PatientsesResponse struct {
 func FromDomainAllPatientses(domain patientses.Domain) PatientsesResponse {
 	return PatientsesResponse{
 		ID:                domain.ID,
+		DoctorID:          domain.DoctorID,
+		PatientID:         domain.PatientID,
+		PatientScheduleID: domain.PatientScheduleID,
 		Symptoms:          domain.Symptoms,
+		Date:              domain.Date,
 		Title:             domain.Title,
 		DetailRecipe:      domain.DetailRecipe,
 		Status:            domain.Status,
-		Date:              domain.Date,
 		Patsche:           patscheresponse.FromDomainAllPatsche(domain.Patsche),
 		Doctor:            doctorresponse.FromDomainAllDoctor(domain.Doctor),
 		Patient:           patientresponse.FromDomainAllPatient(domain.Patient),
@@ -104,11 +110,14 @@ func FromDomainUpdatePatientses(domain patientses.Domain) CreatePatientsesRespon
 	return CreatePatientsesResponse{
 		Message:           "Update Patient Session Success",
 		ID:                domain.ID,
+		DoctorID:          domain.DoctorID,
+		PatientID:         domain.PatientID,
+		PatientScheduleID: domain.PatientScheduleID,
 		Symptoms:          domain.Symptoms,
+		Date:              domain.Date,
 		Title:             domain.Title,
 		DetailRecipe:      domain.DetailRecipe,
 		Status:            domain.Status,
-		Date:              domain.Date,
 		CreatedAt:         domain.CreatedAt,
 		UpdatedAt:         domain.UpdatedAt,
 	}
