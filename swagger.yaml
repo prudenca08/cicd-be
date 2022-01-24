@@ -1,9 +1,12 @@
----
 swagger: "2.0"
 info:
-  version: "1.0"
+  version: 1.0.0
   title: "Hms API"
-  contact: {}
+  description: Hospital Management System API
+  contact:
+    name: HMS API
+    url: virtserver.swaggerhub.com/prudenca08/hms/1.0.0
+
 host: "localhost:8080"
 basePath: "/"
 tags:
@@ -13,614 +16,614 @@ tags:
   - name: "Outpatientses"
   - name: "Doctorses"
   - name: "Patientschedule"
-schemes:
-  - "http"
+# schemes:
+#   - "http"
 consumes:
   - "application/json"
 produces:
   - "application/json"
 security: []
 paths:
-  /admins/login:
-    post:
-      tags:
-        - "Admin"
-      summary: "login admin"
-      operationId: "loginadmin"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "Authorization"
-          in: "header"
-          required: false
-          type: "string"
-          default: "Bearer {token}"
-          x-exportParamName: "Authorization"
-          x-optionalDataType: "String"
-        - in: "body"
-          name: "Body"
-          description: ""
-          required: true
-          schema:
-            $ref: "#/definitions/loginadminrequest"
-          x-exportParamName: "Body"
-      deprecated: false
-      responses:
-        "200":
-          description: ""
-          headers: {}
   /admins/register:
     post:
       tags:
         - "Admin"
-      summary: "register admin"
-      operationId: "registeradmin"
+      operationId: "postAdmin/register"
       produces:
         - "application/json"
       parameters:
-        - name: "Authorization"
-          in: "header"
-          required: false
-          type: "string"
-          default: "Bearer {token}"
-          x-exportParamName: "Authorization"
-          x-optionalDataType: "String"
         - in: "body"
-          name: "Body"
-          description: ""
+          name: "Admin Register"
           required: true
           schema:
-            $ref: "#/definitions/registeradminrequest"
-          x-exportParamName: "Body"
-      deprecated: false
+            $ref: "#/definitions/admin"
       responses:
         "200":
-          description: ""
+          description: "Success Register Admin"
           headers: {}
-  /admins/change-password-doctor/1:
+
+  /admins/login:
+    post:
+      tags:
+        - "Admin"
+      operationId: "postAdmin/login"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "Admin Login"
+          required: true
+          schema:
+            $ref: "#/definitions/admin"
+      responses:
+        "200":
+          description: "Success Login Admin"
+          headers: {}
+
+  /admins/update-doctor/id:
     put:
       tags:
         - "Admin"
-      summary: "update pass doc"
-      operationId: "updatepassdoc"
+      operationId: "putAdmin/update-doctor"
       produces:
         - "application/json"
       parameters:
-        - name: "Authorization"
-          in: "header"
-          required: false
-          type: "string"
-          default: "Bearer {token}"
-          x-exportParamName: "Authorization"
-          x-optionalDataType: "String"
+        - in: "header"
+          name: "Update Doctor by Admin"
+          description: "Masukkan ID Doctor"
+          required: true
+          type: "integer"
+
         - in: "body"
-          name: "Body"
+          name: "Update Doctor Field"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/updatepassdocrequest"
-          x-exportParamName: "Body"
-      deprecated: false
+            $ref: "#/definitions/doctor"
       responses:
         "200":
-          description: ""
+          description: "Success Update Doctor"
           headers: {}
+
+  /admins/delete-doctor/id:
+    delete:
+      tags:
+        - "Admin"
+      operationId: "deleteAdmin/delete-doctor"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "Delete Doctor by Admin"
+          description: "Masukkan ID Doctor"
+          required: true
+          type: "integer"
+      responses:
+        "200":
+          description: "Success Delete Doctor"
+          headers: {}
+
+  /admins/change-password-doctor/id:
+    put:
+      tags:
+        - "Admin"
+      operationId: "putAdmin/change-update-doctor"
+      parameters:
+        - name: "Change Password Doctor by Admin"
+          in: "header"
+          description: "Masukkan ID Doctor"
+          required: true
+          type: "integer"
+        - in: "body"
+          name: "Change Password Field"
+          required: true
+          schema:
+            $ref: "#/definitions/changepass"
+
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Success Change Password Doctor"
+          headers: {}
+
   /doctor/register:
     post:
       tags:
         - "Doctor"
-      summary: "register"
-      operationId: "register"
+      operationId: "postDoctor/register"
       produces:
         - "application/json"
       parameters:
+        - name: "Token"
+          in: "header"
+          description: "Masukkan Token dari Admin"
+          required: true
+          type: "string"
+          default: "Bearer {token}"
+
         - in: "body"
-          name: "Body"
-          description: ""
+          name: "Doctor Register Field"
           required: true
           schema:
-            $ref: "#/definitions/registerrequest"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/doctor"
+      # deprecated: false
       responses:
         "200":
-          description: ""
+          description: "Success Register Doctor"
           headers: {}
+
   /doctor/login:
     post:
       tags:
         - "Doctor"
-      summary: "login"
-      operationId: "login"
+      operationId: "postDoctor/login"
       produces:
         - "application/json"
       parameters:
-        - name: "Authorization"
+        - name: "Token"
           in: "header"
-          required: false
+          description: "Masukkan Token dari Admin"
+          required: true
           type: "string"
           default: "Bearer {token}"
-          x-exportParamName: "Authorization"
-          x-optionalDataType: "String"
         - in: "body"
-          name: "Body"
-          description: ""
+          name: "Login"
           required: true
           schema:
-            $ref: "#/definitions/loginrequest"
-          x-exportParamName: "Body"
-      deprecated: false
+            $ref: "#/definitions/admin"
+
       responses:
         "200":
-          description: ""
+          description: "Success Login Doctor"
           headers: {}
-  /admins/update-doctor/2:
+
+  /doctor/update-doctor/id:
     put:
       tags:
         - "Doctor"
-      summary: "update"
-      operationId: "update"
+      operationId: "putDoctor/update-doctor"
       produces:
         - "application/json"
       parameters:
+        - in: "header"
+          name: "Update Doctor"
+          description: "Masukkan ID Doctor"
+          required: true
+          type: "integer"
+
         - in: "body"
-          name: "Body"
+          name: "Update Doctor Field"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/updaterequest"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/doctor"
+
       responses:
         "200":
-          description: ""
+          description: "Success Update Doctor"
           headers: {}
-  /admins/delete-doctor/3:
-    delete:
-      tags:
-        - "Doctor"
-      summary: "delete"
-      operationId: "delete"
-      produces:
-        - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
-      responses:
-        "200":
-          description: ""
-          headers: {}
-  /doctor/change-password/1:
+
+  /doctor/change-password/id:
     put:
       tags:
         - "Doctor"
-      summary: "update pass"
-      operationId: "updatepass"
-      produces:
-        - "application/json"
+      operationId: "putDoctor/change-update-doctor"
       parameters:
+        - name: "Change Password Doctor"
+          in: "header"
+          description: "Masukkan ID Doctor"
+          required: true
+          type: "integer"
         - in: "body"
-          name: "Body"
-          description: ""
+          name: "Change Password Field"
           required: true
           schema:
-            $ref: "#/definitions/updatepassrequest"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/changepass"
+
       responses:
         "200":
-          description: ""
+          description: "Success Change Password Doctor"
           headers: {}
   /doctor:
     get:
       tags:
         - "Doctor"
-      summary: "doctor"
-      operationId: "doctor"
+      operationId: "getDoctor"
       produces:
         - "application/json"
+
       parameters:
-        - name: "Authorization"
-          in: "header"
-          required: false
-          type: "string"
-          default: "Bearer {token}"
-          x-exportParamName: "Authorization"
-          x-optionalDataType: "String"
-      deprecated: false
+        - in: "body"
+          name: "Get Doctor"
+          description: "Get Data Doctor"
+          required: true
+          schema:
+            $ref: "#/definitions/doctor"
+
       responses:
         "200":
-          description: ""
+          description: "Success Get Data Doctor"
           headers: {}
+
   /admins/create-patient:
     post:
       tags:
         - "Patient"
-      summary: "cteate"
-      operationId: "cteate"
+      operationId: "postPatient/create-patient"
       produces:
         - "application/json"
       parameters:
         - in: "body"
-          name: "Body"
+          name: "Create Patient by Admin"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/cteaterequest"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/patient"
+
       responses:
         "200":
-          description: ""
+          description: "Success Create Patient"
           headers: {}
-  /admins/update-patient/2:
+
+  /admins/update-patient/id:
     put:
       tags:
         - "Patient"
-      summary: "update"
-      operationId: "Putupdate"
-      produces:
-        - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
-      responses:
-        "200":
-          description: ""
-          headers: {}
-  /admins/delete-patient/{id}:
-    delete:
-      tags:
-        - "Patient"
-      summary: "delete"
-      operationId: "Deletedelete"
+      operationId: "putPatient/update-patient"
       produces:
         - "application/json"
       parameters:
-        - name: "id"
-          in: "path"
+        - in: "header"
+          name: "Update Patient by Admin"
+          description: "Masukkan ID Patient"
+          required: true
+          type: "integer"
+
+        - in: "body"
+          name: "Update Patient Field"
           description: ""
           required: true
-          type: "string"
-          x-exportParamName: "Id"
-      security:
-        - bearer: []
-      deprecated: false
+          schema:
+            $ref: "#/definitions/patient"
+
       responses:
         "200":
-          description: ""
+          description: "Success Update Patient"
           headers: {}
+
+  /admins/delete-patient/id:
+    delete:
+      tags:
+        - "Patient"
+      operationId: "deletePatient/delete-patient"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "Delete Patient by Admin"
+          description: "Masukkan ID Patient"
+          required: true
+          type: "integer"
+
+      responses:
+        "200":
+          description: "Success Delete Patient"
+          headers: {}
+
   /patient:
     get:
       tags:
         - "Patient"
-      summary: "patient"
-      operationId: "patient"
+      operationId: "getPatient"
       produces:
         - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
+
+      parameters:
+        - in: "body"
+          name: "Get Patient"
+          description: "Get Data Patient"
+          required: true
+          schema:
+            $ref: "#/definitions/patient"
+
       responses:
         "200":
-          description: ""
+          description: "Success Get Data Patient"
           headers: {}
+
   /admins/create-patientses:
     post:
       tags:
         - "Outpatientses"
-      summary: "create"
-      operationId: "create"
+      operationId: "postOutpatientses/create-patientses"
       produces:
         - "application/json"
       parameters:
         - in: "body"
-          name: "Body"
+          name: "Create Patientses by Admin"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/createrequest"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/patientses"
+
       responses:
         "200":
-          description: ""
+          description: "Success Create Patientses"
           headers: {}
-  /admins/update-patientses/2:
+
+  /admins/update-patientses/id:
     put:
       tags:
         - "Outpatientses"
-      summary: "update"
-      operationId: "Putupdate1"
+      operationId: "putOutpatientses/update-patientses"
       produces:
         - "application/json"
       parameters:
+        - in: "header"
+          name: "Update Patientses by Admin"
+          description: "Masukkan ID Patientses"
+          required: true
+          type: "integer"
+
         - in: "body"
-          name: "Body"
+          name: "Update Patientses Field"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/updaterequest1"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/patientses"
+
       responses:
         "200":
-          description: ""
+          description: "Success Update Patientses"
           headers: {}
-  /admins/delete-patientses/1:
+
+  /admins/delete-patientses/id:
     delete:
       tags:
         - "Outpatientses"
-      summary: "delete"
-      operationId: "Deletedelete1"
+      operationId: "deleteOutpatientses/delete-patientses"
       produces:
         - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
+      parameters:
+        - in: "header"
+          name: "Delete Patientses by Admin"
+          description: "Masukkan ID Patientses"
+          required: true
+          type: "integer"
+
       responses:
         "200":
-          description: ""
+          description: "Success Delete Patientses"
           headers: {}
+
   /patientses:
     get:
       tags:
         - "Outpatientses"
-      summary: "Outpatientses"
-      operationId: "Outpatientses"
+      operationId: "getOutpatientses"
       produces:
         - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
+
+      parameters:
+        - in: "body"
+          name: "Get Patientses"
+          description: "Get Data Patientses"
+          required: true
+          schema:
+            $ref: "#/definitions/patientses"
+
       responses:
         "200":
-          description: ""
+          description: "Success Get Data Patientses"
           headers: {}
+
   /admins/create-docses:
     post:
       tags:
         - "Doctorses"
-      summary: "create"
-      operationId: "Postcreate"
+      operationId: "postDoctorses/create-docses"
       produces:
         - "application/json"
       parameters:
         - in: "body"
-          name: "Body"
+          name: "Create Doctorses by Admin"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/createrequest1"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/docses"
+
       responses:
         "200":
-          description: ""
+          description: "Success Create Doctorses"
           headers: {}
-  /admins/update-docses/{id}:
+
+  /admins/update-docses/id:
     put:
       tags:
         - "Doctorses"
-      summary: "update"
-      operationId: "Putupdate12"
+      operationId: "putDoctorses/update-docses"
       produces:
         - "application/json"
       parameters:
-        - name: "id"
-          in: "path"
+        - in: "header"
+          name: "Update Doctorses by Admin"
+          description: "Masukkan ID Doctorses"
+          required: true
+          type: "integer"
+
+        - in: "body"
+          name: "Update Doctorses Field"
           description: ""
           required: true
-          type: "string"
-          x-exportParamName: "Id"
-      security:
-        - bearer: []
-      deprecated: false
+          schema:
+            $ref: "#/definitions/docses"
+
       responses:
         "200":
-          description: ""
+          description: "Success Update Doctorses"
           headers: {}
-  /admins/delete-docses/{id}:
+
+  /admins/delete-docses/id:
     delete:
       tags:
         - "Doctorses"
-      summary: "delete"
-      operationId: "Deletedelete12"
+      operationId: "deleteDoctorses/delete-docses"
       produces:
         - "application/json"
       parameters:
-        - name: "id"
-          in: "path"
-          description: ""
+        - in: "header"
+          name: "Delete Doctorses by Admin"
+          description: "Masukkan ID Doctorses"
           required: true
-          type: "string"
-          x-exportParamName: "Id"
-      security:
-        - bearer: []
-      deprecated: false
+          type: "integer"
+
       responses:
         "200":
-          description: ""
+          description: "Success Delete Doctorses"
           headers: {}
+
   /docses:
     get:
       tags:
         - "Doctorses"
-      summary: "doctorses"
-      operationId: "doctorses"
+      operationId: "getDoctorses"
       produces:
         - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
+
+      parameters:
+        - in: "body"
+          name: "Get Doctorses"
+          description: "Get Data Doctorses"
+          required: true
+          schema:
+            $ref: "#/definitions/docses"
+
       responses:
         "200":
-          description: ""
+          description: "Success Get Data Doctorses"
           headers: {}
+
   /admins/create-patsche:
     post:
       tags:
         - "Patientschedule"
-      summary: "create"
-      operationId: "Postcreate1"
+      operationId: "postPatientschedule/create-patsche"
       produces:
         - "application/json"
       parameters:
         - in: "body"
-          name: "Body"
+          name: "Create Patientschedule by Admin"
           description: ""
           required: true
           schema:
-            $ref: "#/definitions/createrequest1"
-          x-exportParamName: "Body"
-      security:
-        - bearer: []
-      deprecated: false
+            $ref: "#/definitions/patientsches"
+
       responses:
         "200":
-          description: ""
+          description: "Success Create Patientschedule"
           headers: {}
-  /admins/update-patsche/{id}:
+
+  /admins/update-patsche/id:
     put:
       tags:
         - "Patientschedule"
-      summary: "update"
-      operationId: "Putupdate123"
+      operationId: "putPatientschedule/update-patsche"
       produces:
         - "application/json"
       parameters:
-        - name: "id"
-          in: "path"
+        - in: "header"
+          name: "Update Patientschedule by Admin"
+          description: "Masukkan ID Patientschedule"
+          required: true
+          type: "integer"
+
+        - in: "body"
+          name: "Update Patientschedule Field"
           description: ""
           required: true
-          type: "string"
-          x-exportParamName: "Id"
-      security:
-        - bearer: []
-      deprecated: false
+          schema:
+            $ref: "#/definitions/patientsches"
+
       responses:
         "200":
-          description: ""
+          description: "Success Update Patientschedule"
           headers: {}
-  /admins/delete-patsche/{id}:
+
+  /admins/delete-patsche/id:
     delete:
       tags:
         - "Patientschedule"
-      summary: "delete"
-      operationId: "Deletedelete123"
+      operationId: "deletePatientschedule/delete-patsche"
       produces:
         - "application/json"
       parameters:
-        - name: "id"
-          in: "path"
-          description: ""
+        - in: "header"
+          name: "Delete Patientschedule by Admin"
+          description: "Masukkan ID Patientschedule"
           required: true
-          type: "string"
-          x-exportParamName: "Id"
-      security:
-        - bearer: []
-      deprecated: false
+          type: "integer"
+
       responses:
         "200":
-          description: ""
+          description: "Success Delete Patientschedule"
           headers: {}
+
   /patsche:
     get:
       tags:
         - "Patientschedule"
-      summary: "patientschedule"
-      operationId: "patientschedule"
+      operationId: "getPatientschedule"
       produces:
         - "application/json"
-      parameters: []
-      security:
-        - bearer: []
-      deprecated: false
+
+      parameters:
+        - in: "body"
+          name: "Get Patientschedule"
+          description: "Get Data Patientschedule"
+          required: true
+          schema:
+            $ref: "#/definitions/patientsches"
+
       responses:
         "200":
-          description: ""
+          description: "Success Get Data Patientschedule"
           headers: {}
+
 securityDefinitions: {}
+
 definitions:
-  loginadminrequest:
-    type: "object"
+  admin:
     required:
-      - "password"
-      - "username"
+      - "ID"
+      - "Password"
+      - "Username"
+      - "Token"
     properties:
       username:
         type: "string"
       password:
         type: "string"
-    title: "loginadminrequest"
-    example:
-      username: "admin_arya"
-      password: "arya123"
-  registeradminrequest:
-    type: "object"
+
+  doctor:
     required:
-      - "password"
-      - "username"
+      - "ID"
+      - "DoctorsessionID"
+      - "Username"
+      - "Password"
+      - "Name"
+      - "NIP"
+      - "Experience"
+      - "Specialist"
+      - "Room"
+      - "Phone_Number"
+      - "Status"
+      - "Token"
     properties:
-      username:
-        type: "string"
-      password:
-        type: "string"
-    title: "registeradminrequest"
-    example:
-      username: "admin_arya"
-      password: "arya123"
-  updatepassdocrequest:
-    type: "object"
-    required:
-      - "confirmpassword"
-      - "newpassword"
-    properties:
-      newpassword:
-        type: "string"
-      confirmpassword:
-        type: "string"
-    title: "updatepassdocrequest"
-    example:
-      newpassword: "daffa123"
-      confirmpassword: "daffa123"
-  registerrequest:
-    type: "object"
-    required:
-      - "doctorsessionid"
-      - "experience"
-      - "name"
-      - "nip"
-      - "password"
-      - "phone_number"
-      - "room"
-      - "specialist"
-      - "status"
-      - "username"
-    properties:
+      id:
+        type: "integer"
       doctorsessionid:
         type: "integer"
-        format: "int32"
       username:
         type: "string"
       password:
@@ -639,104 +642,24 @@ definitions:
         type: "string"
       status:
         type: "string"
-    title: "registerrequest"
-    example:
-      doctorsessionid: 2
-      username: "dr_sarah"
-      password: "sarah123"
-      name: "Sarah"
-      nip: "345435"
-      experience: "S3-Industry University"
-      specialist: "Hati"
-      room: "A27"
-      phone_number: "086756465565"
-      status: "waitting"
-  loginrequest:
-    type: "object"
-    required:
-      - "password"
-      - "username"
-    properties:
-      username:
+      token:
         type: "string"
-      password:
-        type: "string"
-    title: "loginrequest"
-    example:
-      username: "dr_dapo"
-      password: "dapo123"
-  updaterequest:
-    type: "object"
+
+  patient:
     required:
-      - "doctorsessionid"
-      - "experience"
-      - "name"
-      - "nip"
-      - "password"
-      - "phone_number"
-      - "room"
-      - "specialist"
-      - "status"
-      - "username"
+      - "ID"
+      - "AdminID"
+      - "Name"
+      - "NIK"
+      - "DOB"
+      - "Gender"
+      - "Phone"
+      - "Address"
     properties:
-      doctorsessionid:
+      id:
         type: "integer"
-        format: "int32"
-      username:
-        type: "string"
-      password:
-        type: "string"
-      name:
-        type: "string"
-      nip:
-        type: "string"
-      experience:
-        type: "string"
-      specialist:
-        type: "string"
-      room:
-        type: "string"
-      phone_number:
-        type: "string"
-      status:
-        type: "string"
-    title: "updaterequest"
-    example:
-      doctorsessionid: 2
-      username: "dr_arya"
-      password: "arya123"
-      name: "Arya"
-      nip: "23432433"
-      experience: "S3-Kreativitas University"
-      specialist: "Batuk"
-      room: "A27"
-      phone_number: "086536432234"
-      status: "waitting"
-  updatepassrequest:
-    type: "object"
-    required:
-      - "confirmpassword"
-      - "newpassword"
-    properties:
-      newpassword:
-        type: "string"
-      confirmpassword:
-        type: "string"
-    title: "updatepassrequest"
-    example:
-      newpassword: "dapo123"
-      confirmpassword: "dapo123"
-  cteaterequest:
-    type: "object"
-    required:
-      - "address"
-      - "dob"
-      - "gender"
-      - "name"
-      - "nik"
-      - "phone"
-      - "symptoms"
-    properties:
+      adminid:
+        type: "integer"
       name:
         type: "string"
       nik:
@@ -749,115 +672,79 @@ definitions:
         type: "string"
       address:
         type: "string"
-      symptoms:
-        type: "string"
-    title: "cteaterequest"
-    example:
-      name: "Daffa"
-      nik: "12312432"
-      dob: "12/10/2003"
-      gender: "Pria"
-      phone: "087675645345"
-      address: "Jogja"
-      symptoms: "Gatal gatal dikit"
-  createrequest:
-    type: "object"
+
+  docses:
     required:
-      - "date"
-      - "detailrecipe"
-      - "doctorid"
-      - "patientid"
-      - "patientscheduleid"
-      - "status"
-      - "symptoms"
-      - "title"
-    properties:
-      doctorid:
-        type: "integer"
-        format: "int32"
-      patientid:
-        type: "integer"
-        format: "int32"
-      patientscheduleid:
-        type: "integer"
-        format: "int32"
-      symptoms:
-        type: "string"
-      title:
-        type: "string"
-      detailrecipe:
-        type: "string"
-      status:
-        type: "string"
-      date:
-        type: "string"
-    title: "createrequest"
-    example:
-      doctorid: 2
-      patientid: 2
-      patientscheduleid: 1
-      symptoms: "sering berak "
-      title: "Perut"
-      detailrecipe: "Banyakin tidur ya"
-      status: "Active"
-      date: "12/12/2021"
-  updaterequest1:
-    type: "object"
-    required:
-      - "date"
-      - "detailrecipe"
-      - "doctorid"
-      - "id"
-      - "patientid"
-      - "patientscheduleid"
-      - "status"
-      - "symptoms"
-      - "title"
+      - "ID"
+      - "AdminID"
+      - "Day"
+      - "Time"
     properties:
       id:
         type: "integer"
-        format: "int32"
-      doctorid:
+      adminid:
         type: "integer"
-        format: "int32"
-      patientid:
-        type: "integer"
-        format: "int32"
-      patientscheduleid:
-        type: "integer"
-        format: "int32"
-      symptoms:
-        type: "string"
-      title:
-        type: "string"
-      detailrecipe:
-        type: "string"
-      status:
-        type: "string"
-      date:
-        type: "string"
-    title: "updaterequest1"
-    example:
-      id: 1
-      doctorid: 1
-      patientid: 1
-      patientscheduleid: 1
-      symptoms: "sering serak suara"
-      title: "Meriang"
-      detailrecipe: "Banyakin tidur ya"
-      status: "Active"
-      date: "12/12/2021"
-  createrequest1:
-    type: "object"
-    required:
-      - "day"
-      - "time"
-    properties:
       day:
         type: "string"
       time:
         type: "string"
-    title: "createrequest1"
-    example:
-      day: "Selasa"
-      time: "14.00"
+
+  patientses:
+    required:
+      - "ID"
+      - "AdminID"
+      - "DoctorID"
+      - "PatientID"
+      - "PatientScheduleID"
+      - "Date"
+      - "Symptoms"
+      - "Title"
+      - "DetailRecipe"
+      - "Status"
+    properties:
+      id:
+        type: "integer"
+      adminid:
+        type: "integer"
+      doctorid:
+        type: "integer"
+      patientid:
+        type: "integer"
+      patientscheduleid:
+        type: "integer"
+      date:
+        type: "string"
+      symptoms:
+        type: "string"
+      title:
+        type: "string"
+      detailrecipe:
+        type: "string"
+      status:
+        type: "string"
+
+  patientsches:
+    required:
+      - "ID"
+      - "AdminID"
+      - "Day"
+      - "Time"
+    properties:
+      id:
+        type: "integer"
+      adminid:
+        type: "integer"
+      day:
+        type: "string"
+      time:
+        type: "string"
+
+  changepass:
+    required:
+      - "Password"
+      - "Confirm Password"
+    properties:
+      password:
+        type: "string"
+      confirmpass:
+        type: "string"
