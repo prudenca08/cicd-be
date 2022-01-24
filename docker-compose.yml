@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   server:
-    image: hms:latest
+    image: prudenca08/cicd-be:latest
     build:
       context: .
       dockerfile: Dockerfile
