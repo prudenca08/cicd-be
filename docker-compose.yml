@@ -28,7 +28,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - hms-volume:/var/lib/hms
+      - hms-volume:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:?database password not set}
 
