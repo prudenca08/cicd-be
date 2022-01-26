@@ -14,7 +14,7 @@
     "name": "db_hms"
   },
   "jwt": {
-    "secret": "db_hms",
+    "secret": "finalproject",
     "expired": 1
   }
 }

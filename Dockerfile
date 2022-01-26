@@ -1,6 +1,6 @@
 FROM golang:1.17-alpine3.14
 
-WORKDIR /hms-app
+WORKDIR /finalproject
 
 COPY go.mod ./
 COPY go.sum ./
